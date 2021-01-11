@@ -26,8 +26,11 @@ h2 {
   font-weight: normal;
 }
 
-h1, h2, h3, nav {
-  font-family: "Saira Extra Condensed", sans-serif;
+h1,
+h2,
+h3,
+nav {
+  font-family: 'Saira Extra Condensed', sans-serif;
 }
 
 /* Responsive images */
@@ -48,7 +51,7 @@ section h2 {
   margin: 60px 0;
 }
 section h2:after {
-  content: "";
+  content: '';
   position: absolute;
   bottom: -20px;
   width: 60px;
@@ -66,3 +69,145 @@ header {
 /* 
  * YOUR CSS:
  */
+
+div {
+  display: flex;
+  margin: 20px;
+}
+
+div > p {
+  flex: 3;
+}
+
+#aboutmockup {
+  flex: 2;
+  align-self: flex-end;
+}
+
+#staff div {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.staff-profile {
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 100%;
+  text-align: center;
+}
+#staff .staff-profile:hover {
+  color: rgb(218, 26, 26);
+  background-color: #e2ab51;
+}
+#staff .staff-profile .headshot {
+  height: 4em;
+  width: 4em;
+  padding-top: 10px;
+}
+
+#staff .staff-profile .staff-name {
+  text-align: center;
+  font-size: 2em;
+}
+
+/* #staff .staff-profile .staff-bio {
+  width: calc(100% - 5em);
+  margin-left: 2.5em;
+  text-align: center;
+  font-style: italic;
+} */
+
+header {
+  display: flex;
+  position: fixed;
+  top: 0;
+  z-index: 10;
+  width: calc(100% - 8em);
+  border-radius: 0 0 1em 1em;
+  color: #fff;
+  background-color: rgba(37, 37, 37, 0.8);
+  margin: 0 4em;
+  /* padding: 10px; */
+  align-items: self-start;
+  align-content: flex-start;
+}
+header .logo {
+  /* align-self: flex-start;
+  flex: 0 0 15%; */
+  flex-grow: 1;
+}
+header .logo img {
+  width: 9em;
+  position: fixed;
+  top: 5px;
+  left: 75px;
+}
+
+header nav {
+  display: flex;
+  /* align-self: baseline; */
+}
+
+}
+header .logo {
+  /* align-self: flex-start;
+  flex: 0 0 15%; */
+  flex-grow: 1;
+  padding-top: 0.25em;
+}
+header .logo img {
+  width: 9em;
+}
+
+header nav {
+  display: flex;
+  /* align-self: baseline; */
+}
+
+.nav-item {
+  height: 3em;
+  margin: 0 1.5em 0 0;
+}
+
+.nav-item a {
+  font-size: 1.3em;
+  color: #fff;
+  text-decoration: none;
+  padding: 5px;
+}
+.nav-item a:hover {
+  color: #202b47;
+  border-radius: 5px;
+  background-color: rgb(83, 233, 37);
+  box-shadow: #be0d0d;
+}
+
+  #carousel {
+    display: flex;
+    justify-content: center;
+  }
+#carousel #carousel-text {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  top: 30%;
+  /* left: 30%; */
+  color: #fff;
+  text-shadow: 2px 2px #252525;
+}
+
+@media all and (min-width: 600px) {
+  #staff .staff-profile {
+    flex: 0 0 40%;
+  }
+}
+
+@media all and (min-width: 960px) {
+  #staff .staff-profile {
+    flex: 0 0 25%;
+  }
+}
