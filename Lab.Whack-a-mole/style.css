@@ -1,4 +1,3 @@
-
 body {
   display: flex;
   flex-direction: column;
@@ -19,7 +18,7 @@ body {
 }
 
 .hole {
-  background-image: url("images/hole.png");
+  background-image: url('images/hole.png');
   background-size: contain;
   width: 110px;
   height: 123px;
@@ -27,5 +26,5 @@ body {
 }
 
 .mole {
-  background-image: url("images/mole.png");
+  background-image: url('images/mole.png');
 }
