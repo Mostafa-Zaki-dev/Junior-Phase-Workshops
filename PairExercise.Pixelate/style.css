@@ -15,3 +15,24 @@ body {
 }
 
 /* your CSS below! */
+
+td {
+  background-color: lightgray;
+  height: 10px;
+  width: 10px;
+}
+
+.black {
+  background-color: black;
+}
+.gray {
+  background-color: grey;
+}
+
+.white {
+  background-color: white;
+}
+
+.dim-gray {
+  background-color: dimgray;
+}
