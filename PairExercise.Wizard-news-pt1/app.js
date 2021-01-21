@@ -4,6 +4,7 @@ const path = require('path');
 const postBank = require('./postBank');
 const postContent = require('./postContent');
 const postList = require('./postList');
+const errorHandler = require('./errorHandler');
 const staticMiddleware = express.static(path.join(__dirname, 'public'));
 
 const app = express();
@@ -19,11 +20,15 @@ app.get('/', (req, res, next) => {
 app.get('/posts/:id', (req, res, next) => {
   const id = req.params.id;
   const post = postBank.find(id);
-  res.send(postContent(post));
+  if (post.id) {
+    res.send(postContent(post));
+  }
+  next();
 });
 
 const PORT = 1337;
 
+app.use(errorHandler);
 app.listen(PORT, () => {
   console.log(`App listening in port ${PORT}`);
 });
