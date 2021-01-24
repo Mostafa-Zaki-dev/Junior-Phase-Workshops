@@ -31,9 +31,9 @@ app.get('/', async (req, res) => {
 app.get('/posts/:id', async (req, res) => {
   try {
     // const post = postBank.find(req.params.id); /*  comment in if you are using postBank */
-    const data = await client.query(`${mainQuery} WHERE posts.id = $1`, [
-      +req.params.id,
-    ]); /* comment in if you are using pg client */
+    const data = await client.query(
+      `${mainQuery} WHERE posts.id = ${+req.params.id}`
+    ); /* comment in if you are using pg client */
     const post = data.rows[0]; /* comment in if you are using pg client */
     res.send(postDetails(post));
   } catch (err) {
