@@ -14,7 +14,15 @@ const app = express();
 app.use(morgan('dev'));
 app.use(express.static(__dirname + '/public'));
 
-const mainQuery = 'SELECT * FROM posts JOIN users ON users.id = posts.userid';
+const mainQuery = `
+SELECT * FROM posts 
+  JOIN users 
+    ON users.id = posts.userid
+  JOIN (SELECT postid, COUNT (*) AS upvotes
+        FROM upvotes 
+        GROUP BY postid) AS counting
+      ON posts.id = counting.postid
+    `;
 
 app.get('/', async (req, res) => {
   try {
