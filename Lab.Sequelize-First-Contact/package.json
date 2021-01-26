@@ -1,0 +1,17 @@
+{
+  "name": "sequelize-lab-scratchpad",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "seed": "node seed"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^4.1.0",
+    "pg": "^8.5.1",
+    "sequelize": "^6.4.0"
+  }
+}
