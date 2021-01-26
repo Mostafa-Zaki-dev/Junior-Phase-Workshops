@@ -8,11 +8,20 @@ async function seed() {
   try {
     console.log(cyan('📡 Connecting to the database...'));
     // Connect to the database
+    await db.sync({ force: true });
 
     console.log(blue('🌱 Seeding the database...'));
 
     // Seed the database
+    const cauliflower = await Plant.create({ name: 'Cauliflower' });
 
+    console.log('cauliflower instance >>>>', cauliflower);
+    console.log('cauliflower name >>>>', cauliflower.name);
+
+    await cauliflower.update({ name: 'Pale Broccoli' });
+
+    console.log('updated cauliflower name >>>>', cauliflower.name);
+    console.log('cauliflower instance >>>>', cauliflower);
     // Close the database connection
     await db.close();
 
