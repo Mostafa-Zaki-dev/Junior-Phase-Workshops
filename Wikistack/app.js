@@ -1,7 +1,7 @@
 const express = require('express');
 const morgan = require('morgan');
 const pg = require('pg');
-const { db } = require('./models');
+const { db, User, Page } = require('./models');
 const layout = require('./views/layout');
 
 const app = express();
@@ -18,6 +18,12 @@ app.get('/', (req, res, next) => {
 });
 
 const PORT = 1337;
-app.listen(PORT, () => {
-  console.log('App listening on port 1337 ');
-});
+
+const init = async () => {
+  await User.sync();
+  await Page.sync();
+  app.listen(PORT, () => {
+    console.log('App is listening on port 1337 ');
+  });
+};
+init();
