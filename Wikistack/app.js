@@ -9,16 +9,17 @@ const { blue, red } = require('chalk');
 
 const app = express();
 db.authenticate().then(() => {
-  console.log(blue('connected to the database'));
+  console.log(blue('connected to the database')); // check database connection
 });
 
 app.use(morgan('dev'));
-app.use(express.static(__dirname + '/public'));
-app.use(express.urlencoded({ extended: false }));
+app.use(express.static(__dirname + '/public')); // use static file 'public'
+app.use(express.urlencoded({ extended: false })); //body parser
+
 app.use('/wiki', wikiRouter);
 
 app.get('/', (req, res, next) => {
-  res.send(layout(' '));
+  res.redirect('/wiki');
 });
 
 const PORT = 1337;
