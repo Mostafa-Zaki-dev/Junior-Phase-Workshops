@@ -20,8 +20,8 @@ app.get('/', (req, res, next) => {
 const PORT = 1337;
 
 const init = async () => {
-  await User.sync();
-  await Page.sync();
+  await User.sync({ force: true });
+  await Page.sync({ force: true });
   app.listen(PORT, () => {
     console.log('App is listening on port 1337 ');
   });
