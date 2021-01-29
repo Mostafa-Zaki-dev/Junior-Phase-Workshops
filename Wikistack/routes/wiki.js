@@ -1,11 +1,13 @@
 const express = require('express');
 const { blue, red, green } = require('chalk');
 const router = express.Router();
-const { addPage, wikiPage } = require('../views');
+const { addPage, wikiPage, main } = require('../views');
 const { Page } = require('../models');
 
-router.get('/', (req, res, next) => {
-  res.send('got to GET /wiki/');
+router.get('/', async (req, res, next) => {
+  const pages = await Page.findAll();
+  console.log(pages);
+  res.send(main(pages));
 });
 
 router.post('/', async (req, res, next) => {
