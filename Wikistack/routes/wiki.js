@@ -1,6 +1,7 @@
 const express = require('express');
+const { blue, red, green } = require('chalk');
 const router = express.Router();
-const { addPage } = require('../views');
+const { addPage, wikiPage } = require('../views');
 const { Page } = require('../models');
 
 router.get('/', (req, res, next) => {
@@ -12,10 +13,10 @@ router.post('/', async (req, res, next) => {
     const page = await Page.create({
       title: req.body.title,
       content: req.body.content,
+      status: req.body.status,
     });
 
-    // make sure we only redirect *after* our save is complete! Don't forget to `await` the previous step. `create` returns a Promise.
-    res.redirect('/');
+    res.redirect(`/wiki/${page.slug}`); // res.redirect(`/${page.slug}`) won't work (equals to go to path localhost/page.slug) as the redirect method has to be the full path not the router related home path /wiki/
   } catch (error) {
     next(error);
   }
@@ -23,6 +24,19 @@ router.post('/', async (req, res, next) => {
 
 router.get('/add', (req, res, next) => {
   res.send(addPage());
+});
+
+router.get('/:slug', async (req, res, next) => {
+  try {
+    const page = await Page.findOne({
+      where: {
+        slug: req.params.slug,
+      },
+    });
+    res.send(wikiPage(page));
+  } catch (error) {
+    next(error);
+  }
 });
 
 module.exports = router;
