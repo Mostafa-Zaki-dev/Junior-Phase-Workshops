@@ -1,5 +1,4 @@
 const express = require('express');
-const { blue, red, green } = require('chalk');
 const router = express.Router();
 const { addPage, wikiPage, main } = require('../views');
 const { Page, User } = require('../models');

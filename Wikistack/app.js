@@ -17,6 +17,7 @@ app.use(express.static(__dirname + '/public')); // use static file 'public'
 app.use(express.urlencoded({ extended: false })); //body parser
 
 app.use('/wiki', wikiRouter);
+app.use('/users', usersRouter);
 
 app.get('/', (req, res, next) => {
   res.redirect('/wiki');
