@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { addPage, wikiPage, main } = require('../views');
 const { Page, User } = require('../models');
+const { blue } = require('chalk');
 
 router.get('/', async (req, res, next) => {
   const pages = await Page.findAll();
@@ -57,7 +58,9 @@ router.get('/:slug', async (req, res, next) => {
         slug: req.params.slug,
       },
     });
-    res.send(wikiPage(page));
+    const author = await page.getAuthor();
+    // console.log(blue('author instance (row) >>>>> : ', author));
+    res.send(wikiPage(page, author));
   } catch (error) {
     next(error);
   }
