@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const morgan = require('morgan');
 const path = require('path');
-const notFound = require('./views/notFound');
+const { notFound, errorHandler } = require('./views/');
 
 app.use(morgan('dev')); //logging middleware
 app.use(express.static(path.join(__dirname, './public'))); //serving up static files (e.g. css files)
@@ -18,6 +18,9 @@ app.get('/', function (req, res) {
 });
 app.use((req, res, next) => {
   res.status(404).send(notFound());
+});
+app.use((err, req, res, next) => {
+  res.status(500).send(errorHandler());
 });
 
 module.exports = app;
