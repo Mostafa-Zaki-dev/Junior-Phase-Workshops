@@ -1,5 +1,5 @@
-const { db, Page, User } = require("./models");
-const app = require("./app");
+const { db, Page, User } = require('./models');
+const app = require('./app');
 
 const PORT = 3000;
 
@@ -19,7 +19,7 @@ const init = async () => {
       console.log(`Listening at http://localhost:${PORT}`);
     });
   } catch (error) {
-    console.error('Error starting server:', error)
+    console.error('Error starting server:', error);
   }
 };
 
