@@ -4,9 +4,9 @@ const { Hotel, Restaurant, Activity, Place } = require('../models');
 router.get('/', async (req, res, next) => {
   try {
     const [hotels, restaurants, activities] = await Promise.all([
-      Hotel.findAll(),
-      Restaurant.findAll(),
-      Activity.findAll(),
+      Hotel.findAll({ include: [Place] }),
+      Restaurant.findAll({ include: [Place] }),
+      Activity.findAll({ include: [Place] }),
     ]);
     res.json({ hotels, restaurants, activities });
   } catch (error) {
