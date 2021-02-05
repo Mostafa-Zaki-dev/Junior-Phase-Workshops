@@ -1,5 +1,6 @@
 import mapboxgl from 'mapbox-gl';
 import buildMarker from './marker.js';
+import fetchAttractions from './api';
 
 mapboxgl.accessToken =
   'pk.eyJ1IjoibW9zdGFmYS16YWtpIiwiYSI6ImNra3BpMDF6NDJlOHcydnRkZm11Nm4ybTcifQ.efjez4xeMaY8eWXt7SR4iQ';
@@ -16,3 +17,22 @@ const map = new mapboxgl.Map({
 
 const marker = buildMarker('activities', fullstackCoords);
 marker.addTo(map);
+
+const makeOption = (attraction, selectorString) => {
+  const option = document.createElement('option');
+  option.value = attraction.id;
+  option.innerHTML = attraction.name;
+  const select = document.getElementById(`${selectorString}`);
+  select.append(option);
+};
+
+const populateAttractionsSelect = async () => {
+  const data = await fetchAttractions();
+  console.log('data >>>>', data);
+  const { hotels, restaurants, activities } = data;
+  hotels.forEach((hotel) => makeOption(hotel, 'hotels-choices'));
+  restaurants.forEach((restaurant) => makeOption(restaurant, 'restaurants-choices'));
+  activities.forEach((activity) => makeOption(activity, 'activities-choices'));
+};
+
+populateAttractionsSelect();

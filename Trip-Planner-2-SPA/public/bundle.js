@@ -86,6 +86,31 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./client/api.js":
+/*!***********************!*\
+  !*** ./client/api.js ***!
+  \***********************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+const fetchAttractions = async () => {
+  try {
+    const url = 'http://localhost:3000/api';
+    const response = await fetch(url);
+    const data = response.json();
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (fetchAttractions);
+
+
+/***/ }),
+
 /***/ "./client/index.js":
 /*!*************************!*\
   !*** ./client/index.js ***!
@@ -98,6 +123,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var mapbox_gl__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! mapbox-gl */ "./node_modules/mapbox-gl/dist/mapbox-gl.js");
 /* harmony import */ var mapbox_gl__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(mapbox_gl__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _marker_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./marker.js */ "./client/marker.js");
+/* harmony import */ var _api__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./api */ "./client/api.js");
+
 
 
 
@@ -116,6 +143,25 @@ const map = new mapbox_gl__WEBPACK_IMPORTED_MODULE_0___default.a.Map({
 
 const marker = Object(_marker_js__WEBPACK_IMPORTED_MODULE_1__["default"])('activities', fullstackCoords);
 marker.addTo(map);
+
+const makeOption = (attraction, selectorString) => {
+  const option = document.createElement('option');
+  option.value = attraction.id;
+  option.innerHTML = attraction.name;
+  const select = document.getElementById(`${selectorString}`);
+  select.append(option);
+};
+
+const populateAttractionsSelect = async () => {
+  const data = await Object(_api__WEBPACK_IMPORTED_MODULE_2__["default"])();
+  console.log('data >>>>', data);
+  const { hotels, restaurants, activities } = data;
+  hotels.forEach((hotel) => makeOption(hotel, 'hotels-choices'));
+  restaurants.forEach((restaurant) => makeOption(restaurant, 'restaurants-choices'));
+  activities.forEach((activity) => makeOption(activity, 'activities-choices'));
+};
+
+populateAttractionsSelect();
 
 
 /***/ }),
