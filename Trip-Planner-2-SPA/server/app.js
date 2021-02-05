@@ -1,12 +1,15 @@
 const morgan = require('morgan');
 const express = require('express');
 const path = require('path');
+const routerApi = require('./routes/api');
 const app = express();
 
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, '..', 'public')));
+
+app.use('/api', routerApi);
 
 app.use(function (req, res, next) {
   var err = new Error('Not Found');
