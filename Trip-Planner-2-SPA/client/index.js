@@ -48,12 +48,7 @@ const onClick = (attractionType) => {
   const selectedAttraction = state.attractions[attractionType].find(
     (attraction) => +attraction.id === +selectedId
   );
-  // const coords = selectedAttraction.place.location;
-  // const marker = buildMarker(attractionType, coords);
-  // marker.addTo(map);
-  // map.flyTo({ center: coords, zoom: 15 });
 
-  // If this attraction is already on state, return
   if (
     state.selectedAttractions.find(
       (attraction) => attraction.id === +selectedId && attraction.category === attractionType
