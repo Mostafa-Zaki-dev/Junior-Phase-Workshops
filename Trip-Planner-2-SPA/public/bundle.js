@@ -174,10 +174,23 @@ const onClick = (attractionType) => {
   const selectedAttraction = state.attractions[attractionType].find(
     (attraction) => +attraction.id === +selectedId
   );
-  const coords = selectedAttraction.place.location;
-  const marker = Object(_marker_js__WEBPACK_IMPORTED_MODULE_1__["default"])(attractionType, coords);
-  marker.addTo(map);
-  map.flyTo({ center: coords, zoom: 15 });
+  // const coords = selectedAttraction.place.location;
+  // const marker = buildMarker(attractionType, coords);
+  // marker.addTo(map);
+  // map.flyTo({ center: coords, zoom: 15 });
+
+  // If this attraction is already on state, return
+  if (
+    state.selectedAttractions.find(
+      (attraction) => attraction.id === +selectedId && attraction.category === attractionType
+    )
+  ) {
+    map.flyTo({ center: selectedAttraction.place.location, zoom: 13.3 });
+    return;
+  }
+
+  //Build and add attraction
+  buildAttractionAssets(attractionType, selectedAttraction);
 };
 
 ['hotels', 'restaurants', 'activities'].forEach((attractionType) => {
@@ -186,14 +199,46 @@ const onClick = (attractionType) => {
     .addEventListener('click', () => onClick(attractionType));
 });
 
-// const hotelAdd = document.getElementById('hotels-add');
-// hotelAdd.addEventListener('click', () => {
-//   const select = document.getElementById('hotels-choices');
-//   const selectedId = select.value;
-//   const selectedAttraction = state.attractions.hotels.find(
-//     (attraction) => +attraction.id === +selectedId
-//   );
-// });
+const buildAttractionAssets = (category, attraction) => {
+  // Create the Elements that will be inserted in the dom
+  const removeButton = document.createElement('button');
+  removeButton.className = 'remove-btn';
+  removeButton.append('x');
+
+  const itineraryItem = document.createElement('li');
+  itineraryItem.className = 'itinerary-item';
+  itineraryItem.append(attraction.name, removeButton);
+
+  // Create the marker
+  const marker = Object(_marker_js__WEBPACK_IMPORTED_MODULE_1__["default"])(category, attraction.place.location);
+
+  // Adds the attraction to the application state
+  state.selectedAttractions.push({ id: attraction.id, category });
+
+  //ADD TO DOM
+  document.getElementById(`${category}-list`).append(itineraryItem);
+  marker.addTo(map);
+
+  // Animate the map
+  map.flyTo({ center: attraction.place.location, zoom: 15 });
+
+  removeButton.addEventListener('click', function remove() {
+    // Stop listening for the event
+    removeButton.removeEventListener('click', remove);
+
+    // Remove the current attrction from the application state
+    state.selectedAttractions = state.selectedAttractions.filter(
+      (selected) => selected.id !== attraction.id || selected.category !== category
+    );
+
+    // Remove attraction's elements from the dom & Map
+    itineraryItem.remove();
+    marker.remove();
+
+    // Animate map to default position & zoom.
+    map.flyTo({ center: fullstackCoords, zoom: 12.3 });
+  });
+};
 
 
 /***/ }),
