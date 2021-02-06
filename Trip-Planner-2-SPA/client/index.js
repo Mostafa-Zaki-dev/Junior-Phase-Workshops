@@ -18,6 +18,11 @@ const map = new mapboxgl.Map({
 const marker = buildMarker('activities', fullstackCoords);
 marker.addTo(map);
 
+const state = {
+  attractions: {},
+  selectedAttractions: [],
+};
+
 const makeOption = (attraction, selectorString) => {
   const option = document.createElement('option');
   option.value = attraction.id;
@@ -28,7 +33,7 @@ const makeOption = (attraction, selectorString) => {
 
 const populateAttractionsSelect = async () => {
   const data = await fetchAttractions();
-  console.log('data >>>>', data);
+  state.attractions = data;
   const { hotels, restaurants, activities } = data;
   hotels.forEach((hotel) => makeOption(hotel, 'hotels-choices'));
   restaurants.forEach((restaurant) => makeOption(restaurant, 'restaurants-choices'));
@@ -36,3 +41,21 @@ const populateAttractionsSelect = async () => {
 };
 
 populateAttractionsSelect();
+
+const onClick = (attractionType) => {
+  const select = document.getElementById(`${attractionType}-choices`);
+  const selectedId = select.value;
+  const selectedAttraction = state.attractions[attractionType].find(
+    (attraction) => +attraction.id === +selectedId
+  );
+  const coords = selectedAttraction.place.location;
+  const marker = buildMarker(attractionType, coords);
+  marker.addTo(map);
+  map.flyTo({ center: coords, zoom: 15 });
+};
+
+['hotels', 'restaurants', 'activities'].forEach((attractionType) => {
+  document
+    .getElementById(`${attractionType}-add`)
+    .addEventListener('click', () => onClick(attractionType));
+});
