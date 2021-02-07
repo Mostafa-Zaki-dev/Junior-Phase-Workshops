@@ -3,21 +3,54 @@ import ReactDOM from 'react-dom';
 
 // write your Color component here
 
+const Color = (props) => {
+  const color = props.color;
+  const selectColor = props.selectColor;
+  const selectedColor = props.selectedColor;
+  const className = color + (color === selectedColor ? 'selected' : '');
+  return <div className={className} onClick={() => selectColor(color)} />;
+};
+
 class Picker extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      selectedColor: '',
+    };
+    this.selectColor = this.selectColor.bind(this);
+  }
+  selectColor(colorName) {
+    this.setState({
+      selectedColor: colorName,
+    });
+  }
   render() {
     return (
       <div id="container">
         <div id="navbar">
           <div>Currently selected: </div>
-          <div className="red">red</div>
+          <div className={this.state.selectedColor}>{this.state.selectedColor}</div>
         </div>
-        <div id="colors-list">{/* colors go here */}</div>
+        <div id="colors-list">
+          <Color
+            color="red"
+            selectColor={this.selectColor}
+            selectedColor={this.state.selectedColor}
+          />
+          <Color
+            color="blue"
+            selectColor={this.selectColor}
+            selectedColor={this.state.selectedColor}
+          />
+          <Color
+            color="green"
+            selectColor={this.selectColor}
+            selectedColor={this.state.selectedColor}
+          />
+        </div>
       </div>
     );
   }
 }
 
-ReactDOM.render(
-  <Picker />,
-  document.getElementById('app')
-);
+ReactDOM.render(<Picker />, document.getElementById('app'));
