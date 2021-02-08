@@ -8,7 +8,7 @@ const Color = (props) => {
   const selectColor = props.selectColor;
   const selectedColor = props.selectedColor;
   const className = color + (color === selectedColor ? ' selected' : '');
-  console.log(className);
+  // console.log(className);
   return <div className={className} onClick={() => selectColor(color)} />;
 };
 
