@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import ContactList from './ContactList';
 
 const contacts = [
   { id: 1, name: 'R2-D2', phone: '222-222-2222', email: 'r2d2@droids.com' },
@@ -22,25 +23,7 @@ class Main extends Component {
           <div>Contact List</div>
         </div>
         <div id="container">
-          <table>
-            <tbody>
-              <tr>
-                <th>Name</th>
-                <th>Phone</th>
-                <th>Email</th>
-              </tr>
-
-              {contacts.map((contact) => {
-                return (
-                  <tr key={contact.id}>
-                    <td>{contact.name}</td>
-                    <td>{contact.phone}</td>
-                    <td>{contact.email}</td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
+          <ContactList contacts={contacts} />
         </div>
       </div>
     );
