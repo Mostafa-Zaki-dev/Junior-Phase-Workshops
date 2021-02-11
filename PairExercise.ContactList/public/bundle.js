@@ -102,9 +102,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function ContactList(_ref) {
-  var contacts = _ref.contacts;
+  var contacts = _ref.contacts,
+      selectContact = _ref.selectContact;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Name"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Phone"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Email")), contacts.map(function (contact) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ContactRow__WEBPACK_IMPORTED_MODULE_1__["default"], {
+      selectContact: selectContact,
       key: contact.id,
       contact: contact
     });
@@ -129,11 +131,50 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function ContactRow(_ref) {
-  var contact = _ref.contact;
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, contact.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, contact.phone), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, contact.email));
+  var contact = _ref.contact,
+      selectContact = _ref.selectContact;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", {
+    onClick: function onClick() {
+      return selectContact(contact.id);
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, contact.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, contact.phone), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, contact.email));
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (ContactRow);
+
+/***/ }),
+
+/***/ "./client/SingleContact.js":
+/*!*********************************!*\
+  !*** ./client/SingleContact.js ***!
+  \*********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function SingleContact(_ref) {
+  var selectedContact = _ref.selectedContact;
+  var name = selectedContact.name,
+      email = selectedContact.email,
+      phone = selectedContact.phone,
+      imageUrl = selectedContact.imageUrl; // console.log('selectedContact >>>>>>', selectedContact);
+  // console.log('name >>>>', name);
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    id: "single-contact"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+    src: imageUrl
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    id: "contact-info"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Name: ", name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Email: ", email), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Phone: ", phone)));
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (SingleContact);
 
 /***/ }),
 
@@ -153,6 +194,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ContactList__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ContactList */ "./client/ContactList.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _SingleContact__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./SingleContact */ "./client/SingleContact.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -184,6 +226,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
+
 var Main = /*#__PURE__*/function (_Component) {
   _inherits(Main, _Component);
 
@@ -196,8 +239,10 @@ var Main = /*#__PURE__*/function (_Component) {
 
     _this = _super.call(this, props);
     _this.state = {
-      contacts: []
+      contacts: [],
+      selectedContact: {}
     };
+    _this.selectContact = _this.selectContact.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -218,24 +263,24 @@ var Main = /*#__PURE__*/function (_Component) {
               case 3:
                 _yield$axios$get = _context.sent;
                 data = _yield$axios$get.data;
-                console.log(data);
+                // console.log(data);
                 this.setState({
                   contacts: data
                 });
-                _context.next = 12;
+                _context.next = 11;
                 break;
 
-              case 9:
-                _context.prev = 9;
+              case 8:
+                _context.prev = 8;
                 _context.t0 = _context["catch"](0);
                 console.error(_context.t0);
 
-              case 12:
+              case 11:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, this, [[0, 9]]);
+        }, _callee, this, [[0, 8]]);
       }));
 
       function componentDidMount() {
@@ -245,16 +290,64 @@ var Main = /*#__PURE__*/function (_Component) {
       return componentDidMount;
     }()
   }, {
+    key: "selectContact",
+    value: function () {
+      var _selectContact = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(contactId) {
+        var _yield$axios$get2, data;
+
+        return regeneratorRuntime.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.prev = 0;
+                _context2.next = 3;
+                return axios__WEBPACK_IMPORTED_MODULE_3___default.a.get("/api/contacts/".concat(contactId));
+
+              case 3:
+                _yield$axios$get2 = _context2.sent;
+                data = _yield$axios$get2.data;
+                // console.log(data);
+                this.setState({
+                  selectedContact: data
+                });
+                _context2.next = 11;
+                break;
+
+              case 8:
+                _context2.prev = 8;
+                _context2.t0 = _context2["catch"](0);
+                console.error(_context2.t0);
+
+              case 11:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this, [[0, 8]]);
+      }));
+
+      function selectContact(_x) {
+        return _selectContact.apply(this, arguments);
+      }
+
+      return selectContact;
+    }()
+  }, {
     key: "render",
     value: function render() {
-      var contacts = this.state.contacts;
+      var _this$state = this.state,
+          contacts = _this$state.contacts,
+          selectedContact = _this$state.selectedContact;
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         id: "main"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         id: "navbar"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Contact List")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         id: "container"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ContactList__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      }, selectedContact.id ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_SingleContact__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        selectedContact: selectedContact
+      }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ContactList__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        selectContact: this.selectContact,
         contacts: contacts
       })));
     }
