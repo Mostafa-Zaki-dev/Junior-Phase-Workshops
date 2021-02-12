@@ -1,11 +1,16 @@
-import React from 'react'
+import React from 'react';
+import AllAlbums from './AllAlbums';
+import Player from './Player';
+import Sidebar from './Sidebar';
 
 export default class Main extends React.Component {
-  render () {
+  render() {
     return (
-      <div id='main' className='row container'>
-        {/* The music starts here! */}
+      <div id="main" className="row container">
+        <Sidebar />
+        <AllAlbums />
+        <Player />
       </div>
-    )
+    );
   }
 }
