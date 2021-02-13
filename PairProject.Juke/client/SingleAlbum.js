@@ -1,15 +1,15 @@
 import React from 'react';
 import Song from './Songs';
 
-function SingleAlbum(props) {
+function SingleAlbum({ selectedAlbum }) {
   return (
     <div className="container">
       <div id="single-album" className="column">
         <div className="album">
           <a>
-            <img src="default-album.jpg" />
-            <p>ALBUM 2</p>
-            <small>Artist Name</small>
+            <img src={selectedAlbum.artworkUrl} />
+            <p>{selectedAlbum.name}</p>
+            <small>{selectedAlbum.artist.name}</small>
           </a>
         </div>
         <table id="songs">
@@ -21,7 +21,7 @@ function SingleAlbum(props) {
               <td>Artist</td>
               <td>Genre</td>
             </tr>
-            <Song />
+            <Song selectedAlbum={selectedAlbum} />
           </tbody>
         </table>
       </div>

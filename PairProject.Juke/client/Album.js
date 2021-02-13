@@ -4,7 +4,7 @@ function Album({ albums, selectAlbum }) {
   return albums.map((album) => {
     return (
       <div key={album.id} className="album">
-        <a onClick={selectAlbum}>
+        <a onClick={() => selectAlbum(album.id)}>
           <img src={album.artworkUrl} />
           <p>
             {/* ALBUM :  */}

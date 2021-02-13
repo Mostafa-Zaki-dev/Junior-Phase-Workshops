@@ -36,8 +36,15 @@ export default class Main extends React.Component {
     };
     this.selectAlbum = this.selectAlbum.bind(this);
   }
-  selectAlbum() {
-    this.setState({ selectedAlbum: dummyData });
+  async selectAlbum(albumId) {
+    try {
+      const album = await (await axios.get(`/api/albums/${albumId}`)).data;
+      // console.log('albumId >>', albumId);
+      // console.log('album >>', album);
+      this.setState({ selectedAlbum: album });
+    } catch (err) {
+      console.log('error while selectAlbum >>>', err.message);
+    }
   }
   async componentDidMount() {
     try {
@@ -54,7 +61,7 @@ export default class Main extends React.Component {
       <div id="main" className="row container">
         <Sidebar />
         {selectedAlbum.id ? (
-          <SingleAlbum />
+          <SingleAlbum selectedAlbum={selectedAlbum} />
         ) : (
           <AllAlbums albums={albums} selectAlbum={this.selectAlbum} />
         )}

@@ -1,16 +1,16 @@
 import React from 'react';
 
-function Song(props) {
-  return [1, 2, 3].map((song) => {
+function Song({ selectedAlbum }) {
+  return selectedAlbum.songs.map((song, index) => {
     return (
-      <tr key={song}>
+      <tr key={song.id}>
         <td>
           <i className="fa fa-play-circle" />
         </td>
-        <td>{song}</td>
-        <td>Song Name</td>
-        <td>Artist Name</td>
-        <td>Song Genre</td>
+        <td>{index + 1}</td>
+        <td>{song.name}</td>
+        <td>{selectedAlbum.artist.name}</td>
+        <td>{song.genre}</td>
       </tr>
     );
   });
