@@ -35,6 +35,7 @@ export default class Main extends React.Component {
       selectedAlbum: {},
     };
     this.selectAlbum = this.selectAlbum.bind(this);
+    this.backToAlbums = this.backToAlbums.bind(this);
   }
   async selectAlbum(albumId) {
     try {
@@ -45,6 +46,9 @@ export default class Main extends React.Component {
     } catch (err) {
       console.log('error while selectAlbum >>>', err.message);
     }
+  }
+  backToAlbums() {
+    this.setState({ selectedAlbum: {} });
   }
   async componentDidMount() {
     try {
@@ -59,7 +63,7 @@ export default class Main extends React.Component {
     const { albums, selectedAlbum } = this.state;
     return (
       <div id="main" className="row container">
-        <Sidebar />
+        <Sidebar backToAlbums={this.backToAlbums} />
         {selectedAlbum.id ? (
           <SingleAlbum selectedAlbum={selectedAlbum} />
         ) : (

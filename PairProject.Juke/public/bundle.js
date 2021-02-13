@@ -203,6 +203,7 @@ class Main extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
       selectedAlbum: {}
     };
     this.selectAlbum = this.selectAlbum.bind(this);
+    this.backToAlbums = this.backToAlbums.bind(this);
   }
 
   async selectAlbum(albumId) {
@@ -216,6 +217,12 @@ class Main extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
     } catch (err) {
       console.log('error while selectAlbum >>>', err.message);
     }
+  }
+
+  backToAlbums() {
+    this.setState({
+      selectedAlbum: {}
+    });
   }
 
   async componentDidMount() {
@@ -240,7 +247,9 @@ class Main extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       id: "main",
       className: "row container"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Sidebar__WEBPACK_IMPORTED_MODULE_3__["default"], null), selectedAlbum.id ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_SingleAlbum__WEBPACK_IMPORTED_MODULE_5__["default"], {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Sidebar__WEBPACK_IMPORTED_MODULE_3__["default"], {
+      backToAlbums: this.backToAlbums
+    }), selectedAlbum.id ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_SingleAlbum__WEBPACK_IMPORTED_MODULE_5__["default"], {
       selectedAlbum: selectedAlbum
     }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_AllAlbums__WEBPACK_IMPORTED_MODULE_1__["default"], {
       albums: albums,
@@ -298,13 +307,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 
 
-function Sidebar(props) {
+function Sidebar({
+  backToAlbums
+}) {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     id: "sidebar"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
     src: "juke.svg",
     id: "logo"
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", null, "ALBUMS"))));
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+    onClick: backToAlbums
+  }, "ALBUMS"))));
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (Sidebar);

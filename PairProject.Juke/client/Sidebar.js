@@ -1,12 +1,12 @@
 import React from 'react';
 
-function Sidebar(props) {
+function Sidebar({ backToAlbums }) {
   return (
     <div id="sidebar">
       <img src="juke.svg" id="logo" />
       <section>
         <h4>
-          <a>ALBUMS</a>
+          <a onClick={backToAlbums}>ALBUMS</a>
         </h4>
       </section>
     </div>
