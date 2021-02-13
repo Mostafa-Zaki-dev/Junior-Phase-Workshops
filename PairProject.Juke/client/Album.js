@@ -1,13 +1,20 @@
 import React from 'react';
 
-function Album(props) {
-  return [1, 2].map((albumNum) => {
+function Album({ albums }) {
+  console.log('albums in Album comp >>>', albums);
+  return albums.map((album) => {
     return (
-      <div className="album">
+      <div key={album.id} className="album">
         <a>
           <img src="default-album.jpg" />
-          <p>ALBUM {albumNum}</p>
-          <small>Artist Name</small>
+          <p>
+            {/* ALBUM :  */}
+            {album.name}
+          </p>
+          <small>
+            {/* Artist Name :  */}
+            {album.artist.name}
+          </small>
         </a>
       </div>
     );

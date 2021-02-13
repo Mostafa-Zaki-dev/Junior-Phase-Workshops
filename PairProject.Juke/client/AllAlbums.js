@@ -1,11 +1,11 @@
 import React from 'react';
 import Album from './Album';
 
-function AllAlbums(props) {
+function AllAlbums({ albums }) {
   return (
     <div className="container">
       <div id="albums" className="row wrap">
-        <Album />
+        <Album albums={albums} />
       </div>
     </div>
   );

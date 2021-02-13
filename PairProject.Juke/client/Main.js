@@ -25,18 +25,24 @@ const data = [
     },
   },
 ];
+
 export default class Main extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       albums: [],
     };
   }
+  componentDidMount() {
+    this.setState({ albums: data });
+  }
   render() {
+    const { albums } = this.state;
+    console.log('albums >>>>', albums);
     return (
       <div id="main" className="row container">
         <Sidebar />
-        <AllAlbums />
+        <AllAlbums albums={albums} />
         <Player />
       </div>
     );
