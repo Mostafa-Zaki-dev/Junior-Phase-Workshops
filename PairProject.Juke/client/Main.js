@@ -14,19 +14,56 @@ export default class Main extends React.Component {
       albums: [],
       selectedAlbum: {},
       currentSong: {},
+      isPlaying: false,
     };
     this.selectAlbum = this.selectAlbum.bind(this);
     this.backToAlbums = this.backToAlbums.bind(this);
     this.start = this.start.bind(this);
+    this.pause = this.pause.bind(this);
+    this.play = this.play.bind(this);
+    this.toggle = this.toggle.bind(this);
+    this.load = this.load.bind(this);
+    this.toggleAnotherSong = this.toggleAnotherSong.bind(this);
   }
 
-  start(song, audioUrl) {
-    // console.log('song URL >>', audioUrl);
-    // console.log('currentSong >>>', song);
-    this.setState({ currentSong: song });
-    audio.src = audioUrl;
-    audio.load();
+  pause() {
+    audio.pause();
+    this.setState({ isPlaying: false });
+  }
+
+  play() {
     audio.play();
+    this.setState({ isPlaying: true });
+  }
+
+  //  it is better to make the load function in separet of play function in order not to load the same song again and again if we are pausing and playing the same song ;)
+
+  load(song) {
+    audio.src = song.audioUrl;
+    audio.load();
+    this.setState({ currentSong: song });
+  }
+
+  //start a new song
+  start(song) {
+    this.pause();
+    this.load(song);
+    this.play();
+  }
+
+  // toggle the same song
+  toggle() {
+    this.state.isPlaying ? this.pause() : this.play();
+  }
+  // toggle the Another song
+  toggleAnotherSong(song) {
+    if (song.id !== this.state.currentSong.id) {
+      // console.log('toggleAnotherSong is firing start()');
+      this.start(song);
+    } else {
+      // console.log('toggleAnotherSong is firing toggle()');
+      this.toggle();
+    }
   }
 
   async selectAlbum(albumId) {
@@ -55,12 +92,17 @@ export default class Main extends React.Component {
   }
 
   render() {
-    const { albums, selectedAlbum, currentSong } = this.state;
+    const { albums, selectedAlbum, currentSong, isPlaying } = this.state;
     return (
       <div id="main" className="row container">
         <Sidebar backToAlbums={this.backToAlbums} />
         {selectedAlbum.id ? (
-          <SingleAlbum currentSong={currentSong} start={this.start} selectedAlbum={selectedAlbum} />
+          <SingleAlbum
+            currentSong={currentSong}
+            toggleAnotherSong={this.toggleAnotherSong}
+            isPlaying={isPlaying}
+            selectedAlbum={selectedAlbum}
+          />
         ) : (
           <AllAlbums albums={albums} selectAlbum={this.selectAlbum} />
         )}

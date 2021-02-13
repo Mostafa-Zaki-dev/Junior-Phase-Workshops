@@ -184,22 +184,63 @@ class Main extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
     this.state = {
       albums: [],
       selectedAlbum: {},
-      currentSong: {}
+      currentSong: {},
+      isPlaying: false
     };
     this.selectAlbum = this.selectAlbum.bind(this);
     this.backToAlbums = this.backToAlbums.bind(this);
     this.start = this.start.bind(this);
+    this.pause = this.pause.bind(this);
+    this.play = this.play.bind(this);
+    this.toggle = this.toggle.bind(this);
+    this.load = this.load.bind(this);
+    this.toggleAnotherSong = this.toggleAnotherSong.bind(this);
   }
 
-  start(song, audioUrl) {
-    // console.log('song URL >>', audioUrl);
-    // console.log('currentSong >>>', song);
+  pause() {
+    audio.pause();
+    this.setState({
+      isPlaying: false
+    });
+  }
+
+  play() {
+    audio.play();
+    this.setState({
+      isPlaying: true
+    });
+  } //  it is better to make the load function in separet of play function in order not to load the same song again and again if we are pausing and playing the same song ;)
+
+
+  load(song) {
+    audio.src = song.audioUrl;
+    audio.load();
     this.setState({
       currentSong: song
     });
-    audio.src = audioUrl;
-    audio.load();
-    audio.play();
+  } //start a new song
+
+
+  start(song) {
+    this.pause();
+    this.load(song);
+    this.play();
+  } // toggle the same song
+
+
+  toggle() {
+    this.state.isPlaying ? this.pause() : this.play();
+  } // toggle the Another song
+
+
+  toggleAnotherSong(song) {
+    if (song.id !== this.state.currentSong.id) {
+      // console.log('toggleAnotherSong is firing start()');
+      this.start(song);
+    } else {
+      // console.log('toggleAnotherSong is firing toggle()');
+      this.toggle();
+    }
   }
 
   async selectAlbum(albumId) {
@@ -239,7 +280,8 @@ class Main extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
     const {
       albums,
       selectedAlbum,
-      currentSong
+      currentSong,
+      isPlaying
     } = this.state;
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       id: "main",
@@ -248,7 +290,8 @@ class Main extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
       backToAlbums: this.backToAlbums
     }), selectedAlbum.id ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_SingleAlbum__WEBPACK_IMPORTED_MODULE_5__["default"], {
       currentSong: currentSong,
-      start: this.start,
+      toggleAnotherSong: this.toggleAnotherSong,
+      isPlaying: isPlaying,
       selectedAlbum: selectedAlbum
     }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_AllAlbums__WEBPACK_IMPORTED_MODULE_1__["default"], {
       albums: albums,
@@ -341,7 +384,8 @@ __webpack_require__.r(__webpack_exports__);
 function SingleAlbum({
   currentSong,
   selectedAlbum,
-  start
+  toggleAnotherSong,
+  isPlaying
 }) {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "container"
@@ -358,7 +402,8 @@ function SingleAlbum({
     className: "gray"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "#"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "Name"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "Artist"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "Genre")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Songs__WEBPACK_IMPORTED_MODULE_1__["default"], {
     currentSong: currentSong,
-    start: start,
+    toggleAnotherSong: toggleAnotherSong,
+    isPlaying: isPlaying,
     selectedAlbum: selectedAlbum
   })))));
 }
@@ -383,18 +428,17 @@ __webpack_require__.r(__webpack_exports__);
 function Song({
   currentSong,
   selectedAlbum,
-  start
+  toggleAnotherSong,
+  isPlaying
 }) {
   return selectedAlbum.songs.map((song, index) => {
+    const isCurrentlyPlaying = song.id === currentSong.id && isPlaying;
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", {
       key: song.id,
       className: song.id === currentSong.id ? 'active' : ''
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-      style: {
-        display: song.id === currentSong.id ? 'none' : 'block'
-      },
-      onClick: () => start(song, song.audioUrl),
-      className: "fa fa-play-circle"
+      onClick: () => toggleAnotherSong(song),
+      className: isCurrentlyPlaying ? 'fa fa-pause-circle' : 'fa fa-play-circle'
     })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, index + 1), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, song.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, selectedAlbum.artist.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, song.genre));
   });
 }

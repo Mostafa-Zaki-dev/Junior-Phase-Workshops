@@ -1,7 +1,7 @@
 import React from 'react';
 import Song from './Songs';
 
-function SingleAlbum({ currentSong, selectedAlbum, start }) {
+function SingleAlbum({ currentSong, selectedAlbum, toggleAnotherSong, isPlaying }) {
   return (
     <div className="container">
       <div id="single-album" className="column">
@@ -21,7 +21,12 @@ function SingleAlbum({ currentSong, selectedAlbum, start }) {
               <td>Artist</td>
               <td>Genre</td>
             </tr>
-            <Song currentSong={currentSong} start={start} selectedAlbum={selectedAlbum} />
+            <Song
+              currentSong={currentSong}
+              toggleAnotherSong={toggleAnotherSong}
+              isPlaying={isPlaying}
+              selectedAlbum={selectedAlbum}
+            />
           </tbody>
         </table>
       </div>
