@@ -177,24 +177,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const dummyData = {
-  id: 3,
-  name: 'Chain React-ion',
-  artworkUrl: 'default-album.jpg',
-  artistId: 1,
-  artist: {
-    id: 1,
-    name: 'The Crash Test Dummies'
-  },
-  songs: [{
-    id: 13,
-    name: 'Set Some State',
-    audioUrl: 'https://storage.googleapis.com/juke-1379.appspot.com/juke-music/Dexter%20Britain/Zenith/01%20Shooting%20Star.mp3',
-    genre: 'Instrumental',
-    albumId: 2,
-    artistId: 1
-  }]
-};
+const audio = document.createElement('audio');
 class Main extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
   constructor(props) {
     super(props);
@@ -204,6 +187,14 @@ class Main extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
     };
     this.selectAlbum = this.selectAlbum.bind(this);
     this.backToAlbums = this.backToAlbums.bind(this);
+    this.start = this.start.bind(this);
+  }
+
+  start(audioUrl) {
+    console.log(audioUrl);
+    audio.src = audioUrl;
+    audio.load();
+    audio.play();
   }
 
   async selectAlbum(albumId) {
@@ -250,6 +241,7 @@ class Main extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Sidebar__WEBPACK_IMPORTED_MODULE_3__["default"], {
       backToAlbums: this.backToAlbums
     }), selectedAlbum.id ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_SingleAlbum__WEBPACK_IMPORTED_MODULE_5__["default"], {
+      start: this.start,
       selectedAlbum: selectedAlbum
     }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_AllAlbums__WEBPACK_IMPORTED_MODULE_1__["default"], {
       albums: albums,
@@ -340,7 +332,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function SingleAlbum({
-  selectedAlbum
+  selectedAlbum,
+  start
 }) {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "container"
@@ -356,6 +349,7 @@ function SingleAlbum({
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", {
     className: "gray"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "#"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "Name"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "Artist"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "Genre")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Songs__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    start: start,
     selectedAlbum: selectedAlbum
   })))));
 }
@@ -378,12 +372,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function Song({
-  selectedAlbum
+  selectedAlbum,
+  start
 }) {
   return selectedAlbum.songs.map((song, index) => {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", {
       key: song.id
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+      onClick: () => start(song.audioUrl),
       className: "fa fa-play-circle"
     })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, index + 1), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, song.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, selectedAlbum.artist.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, song.genre));
   });

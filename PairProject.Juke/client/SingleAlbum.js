@@ -1,7 +1,7 @@
 import React from 'react';
 import Song from './Songs';
 
-function SingleAlbum({ selectedAlbum }) {
+function SingleAlbum({ selectedAlbum, start }) {
   return (
     <div className="container">
       <div id="single-album" className="column">
@@ -21,7 +21,7 @@ function SingleAlbum({ selectedAlbum }) {
               <td>Artist</td>
               <td>Genre</td>
             </tr>
-            <Song selectedAlbum={selectedAlbum} />
+            <Song start={start} selectedAlbum={selectedAlbum} />
           </tbody>
         </table>
       </div>
