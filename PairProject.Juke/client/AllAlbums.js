@@ -3,8 +3,8 @@ import Album from './Album';
 
 function AllAlbums(props) {
   return (
-    <div class="container">
-      <div id="albums" class="row wrap">
+    <div className="container">
+      <div id="albums" className="row wrap">
         <Album />
       </div>
     </div>

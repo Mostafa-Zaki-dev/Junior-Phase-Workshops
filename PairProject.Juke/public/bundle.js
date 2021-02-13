@@ -102,7 +102,7 @@ __webpack_require__.r(__webpack_exports__);
 function Album(props) {
   return [1, 2].map(albumNum => {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      class: "album"
+      className: "album"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
       src: "default-album.jpg"
     }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "ALBUM ", albumNum), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("small", null, "Artist Name")));
@@ -130,10 +130,10 @@ __webpack_require__.r(__webpack_exports__);
 
 function AllAlbums(props) {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    class: "container"
+    className: "container"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     id: "albums",
-    class: "row wrap"
+    className: "row wrap"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Album__WEBPACK_IMPORTED_MODULE_1__["default"], null)));
 }
 
@@ -160,7 +160,33 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+const data = [{
+  id: 1,
+  name: 'No Dummy',
+  artworkUrl: 'default-album.jpg',
+  artistId: 1,
+  artist: {
+    id: 1,
+    name: 'The Crash Test Dummies'
+  }
+}, {
+  id: 2,
+  name: 'I React to State',
+  artworkUrl: 'default-album.jpg',
+  artistId: 1,
+  artist: {
+    id: 1,
+    name: 'The Crash Test Dummies'
+  }
+}];
 class Main extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
+  constructor() {
+    super();
+    this.state = {
+      albums: []
+    };
+  }
+
   render() {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       id: "main",
@@ -191,13 +217,13 @@ function Player(props) {
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     id: "player-controls"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    class: "row center"
+    className: "row center"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-    class: "fa fa-step-backward"
+    className: "fa fa-step-backward"
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-    class: "fa fa-pause-circle"
+    className: "fa fa-pause-circle"
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-    class: "fa fa-step-forward"
+    className: "fa fa-step-forward"
   }))));
 }
 

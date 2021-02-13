@@ -3,7 +3,7 @@ import React from 'react';
 function Album(props) {
   return [1, 2].map((albumNum) => {
     return (
-      <div class="album">
+      <div className="album">
         <a>
           <img src="default-album.jpg" />
           <p>ALBUM {albumNum}</p>
