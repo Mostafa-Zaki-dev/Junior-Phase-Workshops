@@ -1,10 +1,10 @@
 import React from 'react';
 
-function Album({ albums }) {
+function Album({ albums, selectAlbum }) {
   return albums.map((album) => {
     return (
       <div key={album.id} className="album">
-        <a>
+        <a onClick={selectAlbum}>
           <img src={album.artworkUrl} />
           <p>
             {/* ALBUM :  */}

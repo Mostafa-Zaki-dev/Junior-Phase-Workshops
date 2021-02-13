@@ -100,13 +100,16 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function Album({
-  albums
+  albums,
+  selectAlbum
 }) {
   return albums.map(album => {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       key: album.id,
       className: "album"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+      onClick: selectAlbum
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
       src: album.artworkUrl
     }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, album.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("small", null, album.artist.name)));
   });
@@ -132,7 +135,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function AllAlbums({
-  albums
+  albums,
+  selectAlbum
 }) {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "container"
@@ -140,7 +144,8 @@ function AllAlbums({
     id: "albums",
     className: "row wrap"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Album__WEBPACK_IMPORTED_MODULE_1__["default"], {
-    albums: albums
+    albums: albums,
+    selectAlbum: selectAlbum
   })));
 }
 
@@ -172,31 +177,38 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const dummyData = [{
-  id: 1,
-  name: 'No Dummy',
+const dummyData = {
+  id: 3,
+  name: 'Chain React-ion',
   artworkUrl: 'default-album.jpg',
   artistId: 1,
   artist: {
     id: 1,
     name: 'The Crash Test Dummies'
-  }
-}, {
-  id: 2,
-  name: 'I React to State',
-  artworkUrl: 'default-album.jpg',
-  artistId: 1,
-  artist: {
-    id: 1,
-    name: 'The Crash Test Dummies'
-  }
-}];
+  },
+  songs: [{
+    id: 13,
+    name: 'Set Some State',
+    audioUrl: 'https://storage.googleapis.com/juke-1379.appspot.com/juke-music/Dexter%20Britain/Zenith/01%20Shooting%20Star.mp3',
+    genre: 'Instrumental',
+    albumId: 2,
+    artistId: 1
+  }]
+};
 class Main extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
   constructor(props) {
     super(props);
     this.state = {
-      albums: []
+      albums: [],
+      selectedAlbum: {}
     };
+    this.selectAlbum = this.selectAlbum.bind(this);
+  }
+
+  selectAlbum() {
+    this.setState({
+      selectedAlbum: dummyData
+    });
   }
 
   async componentDidMount() {
@@ -215,12 +227,16 @@ class Main extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
 
   render() {
     const {
-      albums
+      albums,
+      selectedAlbum
     } = this.state;
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       id: "main",
       className: "row container"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Sidebar__WEBPACK_IMPORTED_MODULE_3__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_SingleAlbum__WEBPACK_IMPORTED_MODULE_5__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Player__WEBPACK_IMPORTED_MODULE_2__["default"], null));
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Sidebar__WEBPACK_IMPORTED_MODULE_3__["default"], null), selectedAlbum.id ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_SingleAlbum__WEBPACK_IMPORTED_MODULE_5__["default"], null) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_AllAlbums__WEBPACK_IMPORTED_MODULE_1__["default"], {
+      albums: albums,
+      selectAlbum: this.selectAlbum
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Player__WEBPACK_IMPORTED_MODULE_2__["default"], null));
   }
 
 }
