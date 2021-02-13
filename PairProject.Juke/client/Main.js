@@ -3,6 +3,7 @@ import AllAlbums from './AllAlbums';
 import Player from './Player';
 import Sidebar from './Sidebar';
 import axios from 'axios';
+import SingleAlbum from './SingleAlbum';
 
 const dummyData = [
   {
@@ -48,7 +49,8 @@ export default class Main extends React.Component {
     return (
       <div id="main" className="row container">
         <Sidebar />
-        <AllAlbums albums={albums} />
+        {/* <AllAlbums albums={albums} /> */}
+        <SingleAlbum />
         <Player />
       </div>
     );
