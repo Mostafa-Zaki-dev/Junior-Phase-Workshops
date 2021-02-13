@@ -2,8 +2,9 @@ import React from 'react';
 import AllAlbums from './AllAlbums';
 import Player from './Player';
 import Sidebar from './Sidebar';
+import axios from 'axios';
 
-const data = [
+const dummyData = [
   {
     id: 1,
     name: 'No Dummy',
@@ -33,12 +34,17 @@ export default class Main extends React.Component {
       albums: [],
     };
   }
-  componentDidMount() {
-    this.setState({ albums: data });
+  async componentDidMount() {
+    try {
+      const { data } = await axios.get('/api/albums');
+      // console.log('fetched data >>', data);
+      this.setState({ albums: data });
+    } catch (err) {
+      console.log('error while componentDidmount >>>', err.message);
+    }
   }
   render() {
     const { albums } = this.state;
-    console.log('albums >>>>', albums);
     return (
       <div id="main" className="row container">
         <Sidebar />
