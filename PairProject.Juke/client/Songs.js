@@ -1,11 +1,15 @@
 import React from 'react';
 
-function Song({ selectedAlbum, start }) {
+function Song({ currentSong, selectedAlbum, start }) {
   return selectedAlbum.songs.map((song, index) => {
     return (
-      <tr key={song.id}>
+      <tr key={song.id} className={song.id === currentSong.id ? 'active' : ''}>
         <td>
-          <i onClick={() => start(song.audioUrl)} className="fa fa-play-circle" />
+          <i
+            style={{ display: song.id === currentSong.id ? 'none' : 'block' }}
+            onClick={() => start(song, song.audioUrl)}
+            className="fa fa-play-circle"
+          />
         </td>
         <td>{index + 1}</td>
         <td>{song.name}</td>

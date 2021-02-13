@@ -13,14 +13,17 @@ export default class Main extends React.Component {
     this.state = {
       albums: [],
       selectedAlbum: {},
+      currentSong: {},
     };
     this.selectAlbum = this.selectAlbum.bind(this);
     this.backToAlbums = this.backToAlbums.bind(this);
     this.start = this.start.bind(this);
   }
 
-  start(audioUrl) {
-    console.log(audioUrl);
+  start(song, audioUrl) {
+    // console.log('song URL >>', audioUrl);
+    // console.log('currentSong >>>', song);
+    this.setState({ currentSong: song });
     audio.src = audioUrl;
     audio.load();
     audio.play();
@@ -52,12 +55,12 @@ export default class Main extends React.Component {
   }
 
   render() {
-    const { albums, selectedAlbum } = this.state;
+    const { albums, selectedAlbum, currentSong } = this.state;
     return (
       <div id="main" className="row container">
         <Sidebar backToAlbums={this.backToAlbums} />
         {selectedAlbum.id ? (
-          <SingleAlbum start={this.start} selectedAlbum={selectedAlbum} />
+          <SingleAlbum currentSong={currentSong} start={this.start} selectedAlbum={selectedAlbum} />
         ) : (
           <AllAlbums albums={albums} selectAlbum={this.selectAlbum} />
         )}

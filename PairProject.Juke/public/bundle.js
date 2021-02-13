@@ -183,15 +183,20 @@ class Main extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
     super(props);
     this.state = {
       albums: [],
-      selectedAlbum: {}
+      selectedAlbum: {},
+      currentSong: {}
     };
     this.selectAlbum = this.selectAlbum.bind(this);
     this.backToAlbums = this.backToAlbums.bind(this);
     this.start = this.start.bind(this);
   }
 
-  start(audioUrl) {
-    console.log(audioUrl);
+  start(song, audioUrl) {
+    // console.log('song URL >>', audioUrl);
+    // console.log('currentSong >>>', song);
+    this.setState({
+      currentSong: song
+    });
     audio.src = audioUrl;
     audio.load();
     audio.play();
@@ -233,7 +238,8 @@ class Main extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
   render() {
     const {
       albums,
-      selectedAlbum
+      selectedAlbum,
+      currentSong
     } = this.state;
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       id: "main",
@@ -241,6 +247,7 @@ class Main extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Sidebar__WEBPACK_IMPORTED_MODULE_3__["default"], {
       backToAlbums: this.backToAlbums
     }), selectedAlbum.id ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_SingleAlbum__WEBPACK_IMPORTED_MODULE_5__["default"], {
+      currentSong: currentSong,
       start: this.start,
       selectedAlbum: selectedAlbum
     }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_AllAlbums__WEBPACK_IMPORTED_MODULE_1__["default"], {
@@ -332,6 +339,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function SingleAlbum({
+  currentSong,
   selectedAlbum,
   start
 }) {
@@ -349,6 +357,7 @@ function SingleAlbum({
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", {
     className: "gray"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "#"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "Name"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "Artist"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "Genre")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Songs__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    currentSong: currentSong,
     start: start,
     selectedAlbum: selectedAlbum
   })))));
@@ -372,14 +381,19 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function Song({
+  currentSong,
   selectedAlbum,
   start
 }) {
   return selectedAlbum.songs.map((song, index) => {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", {
-      key: song.id
+      key: song.id,
+      className: song.id === currentSong.id ? 'active' : ''
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-      onClick: () => start(song.audioUrl),
+      style: {
+        display: song.id === currentSong.id ? 'none' : 'block'
+      },
+      onClick: () => start(song, song.audioUrl),
       className: "fa fa-play-circle"
     })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, index + 1), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, song.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, selectedAlbum.artist.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, song.genre));
   });
