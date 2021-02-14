@@ -110,7 +110,7 @@ export default class Main extends React.Component {
       // console.log('fetched data >>', data);
       this.setState({ albums: data });
       audio.addEventListener('ended', () => {
-        this.next(currentSong, selectedAlbum.songs);
+        this.next();
       });
     } catch (err) {
       console.log('error while componentDidmount >>>', err.message);

@@ -302,7 +302,7 @@ class Main extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
         albums: data
       });
       audio.addEventListener('ended', () => {
-        this.next(currentSong, selectedAlbum.songs);
+        this.next();
       });
     } catch (err) {
       console.log('error while componentDidmount >>>', err.message);
