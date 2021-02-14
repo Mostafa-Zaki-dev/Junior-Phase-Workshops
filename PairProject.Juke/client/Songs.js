@@ -1,13 +1,13 @@
 import React from 'react';
 
-function Song({ currentSong, selectedAlbum, toggleAnotherSong, isPlaying }) {
+function Song({ currentSong, toggleAnotherSong, isPlaying, selectedAlbum }) {
   return selectedAlbum.songs.map((song, index) => {
     const isCurrentlyPlaying = song.id === currentSong.id && isPlaying;
     return (
       <tr key={song.id} className={song.id === currentSong.id ? 'active' : ''}>
         <td>
           <i
-            onClick={() => toggleAnotherSong(song)}
+            onClick={() => toggleAnotherSong(song, selectedAlbum.songs)}
             className={isCurrentlyPlaying ? 'fa fa-pause-circle' : 'fa fa-play-circle'}
           />
         </td>

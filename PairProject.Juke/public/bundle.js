@@ -178,6 +178,24 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const audio = document.createElement('audio');
+
+function skipTo(nextOrprev, {
+  currentSong,
+  songsList
+}) {
+  const songsIdArr = songsList.map(song => song.id);
+  const CurrentSongIndex = songsIdArr.indexOf(currentSong.id);
+  let skipedToIndex = CurrentSongIndex + nextOrprev;
+
+  if (skipedToIndex < 0) {
+    skipedToIndex = songsIdArr.length - 1;
+  } else if (skipedToIndex > songsIdArr.length - 1) {
+    skipedToIndex = 0;
+  }
+
+  return [songsList[skipedToIndex], songsList];
+}
+
 class Main extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
   constructor(props) {
     super(props);
@@ -185,7 +203,8 @@ class Main extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
       albums: [],
       selectedAlbum: {},
       currentSong: {},
-      isPlaying: false
+      isPlaying: false,
+      songsList: []
     };
     this.selectAlbum = this.selectAlbum.bind(this);
     this.backToAlbums = this.backToAlbums.bind(this);
@@ -195,6 +214,8 @@ class Main extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
     this.toggle = this.toggle.bind(this);
     this.load = this.load.bind(this);
     this.toggleAnotherSong = this.toggleAnotherSong.bind(this);
+    this.next = this.next.bind(this);
+    this.prev = this.prev.bind(this);
   }
 
   pause() {
@@ -212,19 +233,28 @@ class Main extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
   } //  it is better to make the load function in separet of play function in order not to load the same song again and again if we are pausing and playing the same song ;)
 
 
-  load(song) {
+  load(song, songs) {
     audio.src = song.audioUrl;
     audio.load();
     this.setState({
-      currentSong: song
+      currentSong: song,
+      songsList: songs
     });
   } //start a new song
 
 
-  start(song) {
+  start(song, songs) {
     this.pause();
-    this.load(song);
+    this.load(song, songs);
     this.play();
+  }
+
+  next() {
+    this.start(...skipTo(1, this.state));
+  }
+
+  prev() {
+    this.start(...skipTo(-1, this.state));
   } // toggle the same song
 
 
@@ -233,10 +263,10 @@ class Main extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
   } // toggle the Another song
 
 
-  toggleAnotherSong(song) {
+  toggleAnotherSong(song, songs) {
     if (song.id !== this.state.currentSong.id) {
       // console.log('toggleAnotherSong is firing start()');
-      this.start(song);
+      this.start(song, songs);
     } else {
       // console.log('toggleAnotherSong is firing toggle()');
       this.toggle();
@@ -271,6 +301,9 @@ class Main extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
       this.setState({
         albums: data
       });
+      audio.addEventListener('ended', () => {
+        this.next(currentSong, selectedAlbum.songs);
+      });
     } catch (err) {
       console.log('error while componentDidmount >>>', err.message);
     }
@@ -296,7 +329,14 @@ class Main extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
     }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_AllAlbums__WEBPACK_IMPORTED_MODULE_1__["default"], {
       albums: albums,
       selectAlbum: this.selectAlbum
-    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Player__WEBPACK_IMPORTED_MODULE_2__["default"], null));
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Player__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      next: this.next,
+      prev: this.prev,
+      toggle: this.toggle,
+      isPlaying: isPlaying,
+      selectedAlbum: selectedAlbum,
+      currentSong: currentSong
+    }));
   }
 
 }
@@ -316,7 +356,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 
 
-function Player(props) {
+function Player({
+  next,
+  prev,
+  toggle,
+  isPlaying,
+  selectedAlbum,
+  currentSong
+}) {
+  const song = currentSong;
+  const songlist = selectedAlbum.songs;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     id: "player-container"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -324,10 +373,13 @@ function Player(props) {
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "row center"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+    onClick: () => prev(),
     className: "fa fa-step-backward"
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-    className: "fa fa-pause-circle"
+    onClick: toggle,
+    className: isPlaying ? 'fa fa-pause-circle' : 'fa fa-play-circle'
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+    onClick: () => next(),
     className: "fa fa-step-forward"
   }))));
 }
@@ -427,9 +479,9 @@ __webpack_require__.r(__webpack_exports__);
 
 function Song({
   currentSong,
-  selectedAlbum,
   toggleAnotherSong,
-  isPlaying
+  isPlaying,
+  selectedAlbum
 }) {
   return selectedAlbum.songs.map((song, index) => {
     const isCurrentlyPlaying = song.id === currentSong.id && isPlaying;
@@ -437,7 +489,7 @@ function Song({
       key: song.id,
       className: song.id === currentSong.id ? 'active' : ''
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-      onClick: () => toggleAnotherSong(song),
+      onClick: () => toggleAnotherSong(song, selectedAlbum.songs),
       className: isCurrentlyPlaying ? 'fa fa-pause-circle' : 'fa fa-play-circle'
     })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, index + 1), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, song.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, selectedAlbum.artist.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, song.genre));
   });

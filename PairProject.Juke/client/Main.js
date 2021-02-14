@@ -7,6 +7,18 @@ import SingleAlbum from './SingleAlbum';
 
 const audio = document.createElement('audio');
 
+function skipTo(nextOrprev, { currentSong, songsList }) {
+  const songsIdArr = songsList.map((song) => song.id);
+  const CurrentSongIndex = songsIdArr.indexOf(currentSong.id);
+  let skipedToIndex = CurrentSongIndex + nextOrprev;
+  if (skipedToIndex < 0) {
+    skipedToIndex = songsIdArr.length - 1;
+  } else if (skipedToIndex > songsIdArr.length - 1) {
+    skipedToIndex = 0;
+  }
+  return [songsList[skipedToIndex], songsList];
+}
+
 export default class Main extends React.Component {
   constructor(props) {
     super(props);
@@ -15,6 +27,7 @@ export default class Main extends React.Component {
       selectedAlbum: {},
       currentSong: {},
       isPlaying: false,
+      songsList: [],
     };
     this.selectAlbum = this.selectAlbum.bind(this);
     this.backToAlbums = this.backToAlbums.bind(this);
@@ -24,6 +37,8 @@ export default class Main extends React.Component {
     this.toggle = this.toggle.bind(this);
     this.load = this.load.bind(this);
     this.toggleAnotherSong = this.toggleAnotherSong.bind(this);
+    this.next = this.next.bind(this);
+    this.prev = this.prev.bind(this);
   }
 
   pause() {
@@ -38,17 +53,25 @@ export default class Main extends React.Component {
 
   //  it is better to make the load function in separet of play function in order not to load the same song again and again if we are pausing and playing the same song ;)
 
-  load(song) {
+  load(song, songs) {
     audio.src = song.audioUrl;
     audio.load();
-    this.setState({ currentSong: song });
+    this.setState({ currentSong: song, songsList: songs });
   }
 
   //start a new song
-  start(song) {
+  start(song, songs) {
     this.pause();
-    this.load(song);
+    this.load(song, songs);
     this.play();
+  }
+
+  next() {
+    this.start(...skipTo(1, this.state));
+  }
+
+  prev() {
+    this.start(...skipTo(-1, this.state));
   }
 
   // toggle the same song
@@ -56,10 +79,10 @@ export default class Main extends React.Component {
     this.state.isPlaying ? this.pause() : this.play();
   }
   // toggle the Another song
-  toggleAnotherSong(song) {
+  toggleAnotherSong(song, songs) {
     if (song.id !== this.state.currentSong.id) {
       // console.log('toggleAnotherSong is firing start()');
-      this.start(song);
+      this.start(song, songs);
     } else {
       // console.log('toggleAnotherSong is firing toggle()');
       this.toggle();
@@ -86,6 +109,9 @@ export default class Main extends React.Component {
       const { data } = await axios.get('/api/albums');
       // console.log('fetched data >>', data);
       this.setState({ albums: data });
+      audio.addEventListener('ended', () => {
+        this.next(currentSong, selectedAlbum.songs);
+      });
     } catch (err) {
       console.log('error while componentDidmount >>>', err.message);
     }
@@ -106,7 +132,14 @@ export default class Main extends React.Component {
         ) : (
           <AllAlbums albums={albums} selectAlbum={this.selectAlbum} />
         )}
-        <Player />
+        <Player
+          next={this.next}
+          prev={this.prev}
+          toggle={this.toggle}
+          isPlaying={isPlaying}
+          selectedAlbum={selectedAlbum}
+          currentSong={currentSong}
+        />
       </div>
     );
   }
