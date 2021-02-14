@@ -17,7 +17,7 @@ function makeRow() {
 
 button.addEventListener('click', makeRow);
 
-function colorize(e) {
+/* function colorize(e) {
   let tdCell = e.target;
   if (tdCell.tagName === 'TD') {
     tdCell.className = color;
@@ -27,4 +27,23 @@ table.addEventListener('click', colorize);
 
 select.addEventListener('change', function (e) {
   color = e.target.value;
-});
+}); */
+
+// revisited this PairExercise after almost 1 month of gaining more knowledge
+// and instead of having a color variable we can get rid of it and use the below:
+
+function colorize(e) {
+  let tdCell = e.target;
+  if (tdCell.tagName === 'TD') {
+    tdCell.className = select.value;
+  }
+}
+table.addEventListener('click', colorize);
+
+// so we can get rid of color variable and the below eventlistener ;) ;) -wink wink-
+
+/* 
+select.addEventListener('change', function (e) {
+  color = e.target.value;
+}); 
+*/
