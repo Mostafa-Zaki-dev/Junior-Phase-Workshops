@@ -1,5 +1,5 @@
 import React from 'react'
-import store, {addRow} from '../store'
+import store, {addRow, pickColor, colorize} from '../store'
 
 export default class App extends React.Component {
   constructor(props) {
@@ -18,13 +18,21 @@ export default class App extends React.Component {
   handleAddRowClick() {
     store.dispatch(addRow())
   }
+
+  handleColorChange (event) {
+    store.dispatch(pickColor(event.target.value))
+  }
+
+  handleDrawing (row, col){
+    store.dispatch(colorize(row, col))
+  }
   render () {
     return (
       <div id="pixelate">
         <h1>Pixelate</h1>
         <div>
           <button id='add-row' onClick={this.handleAddRowClick}>Add a row</button>
-          <select>
+          <select onChange={this.handleColorChange}>
             <option value="red">Red</option>
             <option value="orange">Orange</option>
             <option value="yellow">Yellow</option>
@@ -41,7 +49,9 @@ export default class App extends React.Component {
           <thead>
           {this.state.grid.map((row, rowIndex ) =>
           <tr key={rowIndex}>
-            {row.map((color, cellIndex) => <td key={cellIndex} className={color}></td>)}
+            {row.map((color, cellIndex) => <td key={cellIndex} className={color} onClick={
+              () => this.handleDrawing(rowIndex,cellIndex)
+            }></td>)}
           </tr>
           )}
           </thead>
