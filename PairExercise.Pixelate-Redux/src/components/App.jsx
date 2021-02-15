@@ -1,6 +1,18 @@
 import React from 'react'
 
 export default class App extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = store.getState()
+  }
+
+  componentDidMount() {
+    this.unsubscribe = store.subscribe(() => this.setState(store.getState()))
+  }
+  
+  componentWillUnmount() {
+    this.unsubscribe()
+  }
   render () {
     return (
       <div id="pixelate">
