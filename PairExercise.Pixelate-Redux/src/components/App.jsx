@@ -1,4 +1,5 @@
 import React from 'react'
+import store, {addRow} from '../store'
 
 export default class App extends React.Component {
   constructor(props) {
@@ -13,12 +14,16 @@ export default class App extends React.Component {
   componentWillUnmount() {
     this.unsubscribe()
   }
+
+  handleAddRowClick() {
+    store.dispatch(addRow())
+  }
   render () {
     return (
       <div id="pixelate">
         <h1>Pixelate</h1>
         <div>
-          <button id='add-row'>Add a row</button>
+          <button id='add-row' onClick={this.handleAddRowClick}>Add a row</button>
           <select>
             <option value="red">Red</option>
             <option value="orange">Orange</option>
@@ -33,6 +38,13 @@ export default class App extends React.Component {
           </select>
         </div>
         <table>
+          <thead>
+          {this.state.grid.map((row, rowIndex ) =>
+          <tr key={rowIndex}>
+            {row.map((color, cellIndex) => <td key={cellIndex} className={color}></td>)}
+          </tr>
+          )}
+          </thead>
         </table>
       </div>
     )
