@@ -9,7 +9,6 @@ export default class TableCell extends React.Component {
   }
 
   handleClick(e) {
-    e.preventDefault()
     store.dispatch(colorize(this.props.rowIdx, this.props.colIdx))
   }
 

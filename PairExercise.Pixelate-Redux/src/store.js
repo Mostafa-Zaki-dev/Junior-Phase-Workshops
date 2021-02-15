@@ -37,7 +37,6 @@ function reducer(state = initialState, action) {
       return { ...state, selectedColor: action.color };
     case COLORIZE:
       const newGrid = [...state.grid];
-      newGrid[action.row] = [...newGrid[action.row]];
       newGrid[action.row][action.column] = state.selectedColor;
       return { ...state, grid: newGrid };
     default:

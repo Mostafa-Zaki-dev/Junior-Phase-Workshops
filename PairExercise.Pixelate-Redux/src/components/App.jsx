@@ -24,9 +24,6 @@ export default class App extends React.Component {
     store.dispatch(pickColor(event.target.value))
   }
 
-  handleDrawing (row, col){
-    store.dispatch(colorize(row, col))
-  }
   render () {
     return (
       <div id="pixelate">
