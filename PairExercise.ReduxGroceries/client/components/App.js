@@ -9,7 +9,7 @@ const App = () => (
 
     <div className="list">
       <AddGrocery />
-      <GroceryList groceries={[]} />
+      <GroceryList groceries={[13]} />
       <Footer />
     </div>
   </div>

@@ -218,7 +218,7 @@ var App = function App() {
       'div',
       { className: 'list' },
       _react2.default.createElement(_AddGrocery2.default, null),
-      _react2.default.createElement(_GroceryList2.default, { groceries: [] }),
+      _react2.default.createElement(_GroceryList2.default, { groceries: [13] }),
       _react2.default.createElement(_Footer2.default, null)
     )
   );
