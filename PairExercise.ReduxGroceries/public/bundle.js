@@ -86,6 +86,97 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./client/components/AddGrocery.js":
+/*!*****************************************!*\
+  !*** ./client/components/AddGrocery.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var AddGrocery = function (_Component) {
+  _inherits(AddGrocery, _Component);
+
+  function AddGrocery(props) {
+    _classCallCheck(this, AddGrocery);
+
+    var _this = _possibleConstructorReturn(this, (AddGrocery.__proto__ || Object.getPrototypeOf(AddGrocery)).call(this, props));
+
+    _this.state = {
+      input: ''
+    };
+    _this.handleKey = _this.handleKey.bind(_this);
+    return _this;
+  }
+
+  _createClass(AddGrocery, [{
+    key: 'handleKey',
+    value: function handleKey(evt) {
+      // console.log('evt.key from handlKey:', evt.key);
+      if (evt.key === 'Enter') {
+        this.props.add(this.state.input);
+        this.setState({ input: '' });
+      }
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _this2 = this;
+
+      return _react2.default.createElement(
+        'div',
+        { className: 'add-grocery' },
+        _react2.default.createElement('input', {
+          type: 'text',
+          value: this.state.input,
+          onChange: function onChange(evt) {
+            // console.log('evt.target from onChange:', evt.target);
+            // console.log('evt.target.value from onChange:', evt.target.value);
+            _this2.setState({ input: evt.target.value });
+          },
+          onKeyDown: this.handleKey
+        }),
+        _react2.default.createElement(
+          'button',
+          {
+            onClick: function onClick() {
+              _this2.props.add(_this2.state.input);
+              _this2.setState({ input: '' });
+            }
+          },
+          'Add Grocery'
+        )
+      );
+    }
+  }]);
+
+  return AddGrocery;
+}(_react.Component);
+
+exports.default = AddGrocery;
+
+/***/ }),
+
 /***/ "./client/components/App.js":
 /*!**********************************!*\
   !*** ./client/components/App.js ***!
@@ -104,21 +195,148 @@ var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 
 var _react2 = _interopRequireDefault(_react);
 
+var _Footer = __webpack_require__(/*! ./Footer */ "./client/components/Footer.js");
+
+var _Footer2 = _interopRequireDefault(_Footer);
+
+var _AddGrocery = __webpack_require__(/*! ./AddGrocery */ "./client/components/AddGrocery.js");
+
+var _AddGrocery2 = _interopRequireDefault(_AddGrocery);
+
+var _GroceryList = __webpack_require__(/*! ./GroceryList */ "./client/components/GroceryList.js");
+
+var _GroceryList2 = _interopRequireDefault(_GroceryList);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var App = function App() {
   return _react2.default.createElement(
-    "div",
-    { className: "app" },
+    'div',
+    { className: 'app' },
+    _react2.default.createElement('img', { src: 'groceries.png', alt: 'Groceries', width: '500' }),
     _react2.default.createElement(
-      "h1",
-      null,
-      "Hello World"
+      'div',
+      { className: 'list' },
+      _react2.default.createElement(_AddGrocery2.default, null),
+      _react2.default.createElement(_GroceryList2.default, { groceries: [] }),
+      _react2.default.createElement(_Footer2.default, null)
     )
   );
 };
 
 exports.default = App;
+
+/***/ }),
+
+/***/ "./client/components/Footer.js":
+/*!*************************************!*\
+  !*** ./client/components/Footer.js ***!
+  \*************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Footer = function Footer() {
+  return _react2.default.createElement(
+    "div",
+    { className: "footer" },
+    "Placeholder for footer"
+  );
+};
+
+exports.default = Footer;
+
+/***/ }),
+
+/***/ "./client/components/GroceryItem.js":
+/*!******************************************!*\
+  !*** ./client/components/GroceryItem.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var GroceryItem = function GroceryItem(_ref) {
+  var onClick = _ref.onClick,
+      bought = _ref.bought,
+      text = _ref.text;
+  return _react2.default.createElement(
+    'li',
+    {
+      onClick: onClick,
+      style: {
+        textDecoration: bought ? 'line-through' : 'none'
+      }
+    },
+    text
+  );
+};
+
+exports.default = GroceryItem;
+
+/***/ }),
+
+/***/ "./client/components/GroceryList.js":
+/*!******************************************!*\
+  !*** ./client/components/GroceryList.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _GroceryItem = __webpack_require__(/*! ./GroceryItem */ "./client/components/GroceryItem.js");
+
+var _GroceryItem2 = _interopRequireDefault(_GroceryItem);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var GroceryList = function GroceryList(props) {
+  return _react2.default.createElement(
+    'ul',
+    null,
+    props.groceries.map(function (grocery) {
+      return _react2.default.createElement(_GroceryItem2.default, _extends({ key: grocery.id }, grocery));
+    })
+  );
+};
+
+exports.default = GroceryList;
 
 /***/ }),
 
