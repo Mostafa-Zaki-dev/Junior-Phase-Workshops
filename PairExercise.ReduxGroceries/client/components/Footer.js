@@ -4,9 +4,27 @@ import { SHOW_ALL, SHOW_BOUGHT, SHOW_ACTIVE, setVisibilityFilter } from '../stor
 
 const Footer = (props) => (
   <div className="footer">
-    <button onClick={() => props.setVisibilityFilter(SHOW_ALL)}>All</button>
-    <button onClick={() => props.setVisibilityFilter(SHOW_BOUGHT)}>Bought</button>
-    <button onClick={() => props.setVisibilityFilter(SHOW_ACTIVE)}>Not Yet</button>
+    <button
+      className="btn btn-primary btn-sm"
+      onClick={() => props.setVisibilityFilter(SHOW_ALL)}
+      style={{ margin: '5px' }}
+    >
+      All
+    </button>
+    <button
+      className="btn btn-success btn-sm "
+      onClick={() => props.setVisibilityFilter(SHOW_BOUGHT)}
+      style={{ margin: '5px' }}
+    >
+      Bought
+    </button>
+    <button
+      className="btn btn-danger btn-sm"
+      onClick={() => props.setVisibilityFilter(SHOW_ACTIVE)}
+      style={{ margin: '5px' }}
+    >
+      Not Yet
+    </button>
   </div>
 );
 
