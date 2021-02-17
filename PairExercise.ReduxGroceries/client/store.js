@@ -5,6 +5,10 @@ import logger from 'redux-logger';
 
 const ADD_GROCERY = 'ADD_GROCERY';
 const TOGGLE_GROCERY = 'TOGGLE_GROCERY';
+const SET_VISIBILITY_FILTER = 'SET_VISIBILITY_FILTER';
+export const SHOW_ALL = 'SHOW_ALL';
+export const SHOW_BOUGHT = 'SHOW_BOUGHT';
+export const SHOW_ACTIVE = 'SHOW_ACTIVE';
 
 // ACTION CREATORS:
 
@@ -18,9 +22,14 @@ export const addGrocery = (groceryName) => ({
 
 export const toggleGrocery = (groceryId) => ({ type: TOGGLE_GROCERY, id: groceryId });
 
+export const setVisibilityFilter = (visibilityFilter) => ({
+  type: SET_VISIBILITY_FILTER,
+  visibilityFilter,
+});
+
 // INITIAL STATE:
 
-const initialState = { groceries: [] };
+const initialState = { groceries: [], visibilityFilter: SHOW_ALL };
 
 // REDUCER:
 
@@ -34,6 +43,8 @@ const reducer = (state = initialState, action) => {
         grocery.id === action.id ? { ...grocery, bought: !grocery.bought } : grocery
       );
       return { ...state, groceries };
+    case SET_VISIBILITY_FILTER:
+      return { ...state, visibilityFilter: action.visibilityFilter };
     default:
       return state;
   }

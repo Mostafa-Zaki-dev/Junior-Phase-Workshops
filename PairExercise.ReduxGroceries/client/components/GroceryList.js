@@ -18,7 +18,24 @@ const GroceryList = (props) => {
   );
 };
 
-const mapStateToProps = (state) => ({ groceries: state.groceries });
+const mapStateToProps = (state) => {
+  const showBought = state.groceries.filter((grocery) => grocery.bought);
+  const showActive = state.groceries.filter((grocery) => !grocery.bought);
+
+  const filterFunc = function (state, groceries) {
+    if (state.visibilityFilter === 'SHOW_BOUGHT') {
+      return showBought;
+    } else if (state.visibilityFilter === 'SHOW_ACTIVE') {
+      return showActive;
+    } else {
+      return state.groceries;
+    }
+  };
+
+  return {
+    groceries: filterFunc(state, state.groceries), // why having state.groceries parameter ??
+  };
+};
 
 const mapDispatchToProps = (dispatch) => ({
   toggleGrocery: (groceryId) => dispatch(toggleGrocery(groceryId)),
