@@ -27,7 +27,7 @@ const reducer = (state = initialState, action) => {
       let newGroceryItem = { id: action.id, text: action.text, bought: false };
       return { ...state, groceries: [...state.groceries, newGroceryItem] };
     default:
-      return newState;
+      return state;
   }
 };
 

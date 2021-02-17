@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { addGrocery } from '../store';
 
 class AddGrocery extends Component {
   constructor(props) {
@@ -43,4 +45,10 @@ class AddGrocery extends Component {
   }
 }
 
-export default AddGrocery;
+const mapDispatchToProps = (dispatch) => ({
+  add: (text) => dispatch(addGrocery(text)),
+});
+
+// first argument is null Since we are not mapping any state for this component.
+
+export default connect(null, mapDispatchToProps)(AddGrocery);
