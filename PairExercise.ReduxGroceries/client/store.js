@@ -16,7 +16,7 @@ let nextId = 0;
 
 export const addGrocery = (groceryName) => ({
   type: ADD_GROCERY,
-  id: nextId++, // shouldn't it be pre-increment ++nextId ?
+  id: ++nextId,
   text: groceryName,
 });
 
@@ -52,6 +52,9 @@ const reducer = (state = initialState, action) => {
 
 // STORE:
 
-const store = createStore(reducer, applyMiddleware(logger));
+const store = createStore(
+  reducer,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
 
 export default store;
