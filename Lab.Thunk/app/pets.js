@@ -1,16 +1,20 @@
-import React from 'react'
-import {connect} from 'react-redux'
-import {List} from './utils'
+import React from 'react';
+import { connect } from 'react-redux';
+import { List } from './utils';
+import { getPets } from './store';
 
 class Pets extends React.Component {
-  render () {
-    const {pets} = this.props
-
+  componentDidMount() {
+    this.props.getPets();
+  }
+  render() {
+    const { pets } = this.props;
+    console.log('pets >>>>', pets);
     return (
       <div>
         <List
           forEachOfThese={pets}
-          doThis={pet => (
+          doThis={(pet) => (
             <div key={pet.id}>
               <img src={pet.imageUrl} />
               <p>{pet.name}</p>
@@ -19,18 +23,18 @@ class Pets extends React.Component {
           unlessEmpty={() => <div>Where are the pets?!?</div>}
         />
       </div>
-    )
+    );
   }
 }
 
 const mapState = (state) => {
   return {
-    pets: state.pets
-  }
-}
+    pets: state.pets,
+  };
+};
 
-const mapDispatch = (dispatch) => {
-  // YOUR CODE HERE
-}
+const mapDispatch = (dispatch) => ({
+  getPets: () => dispatch(getPets()),
+});
 
-export default connect(mapState, mapDispatch)(Pets)
+export default connect(mapState, mapDispatch)(Pets);

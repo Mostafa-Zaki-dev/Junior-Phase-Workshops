@@ -1,27 +1,40 @@
-import {createStore, applyMiddleware} from 'redux'
-import axios from 'axios'
-import loggingMiddleware from 'redux-logger'
+import { createStore, applyMiddleware } from 'redux';
+import axios from 'axios';
+import loggingMiddleware from 'redux-logger';
+import thunkMiddleware from 'redux-thunk';
 
-const GOT_PETS_FROM_SERVER = 'GOT_PETS_FROM_SERVER'
+//ACTION TYPES:
 
-// VVV your code here VVV
+const GOT_PETS_FROM_SERVER = 'GOT_PETS_FROM_SERVER';
 
-// ^^^ your code here ^^^
+//ACTION CREATORS:
 
+const gotPets = (pets) => ({ type: GOT_PETS_FROM_SERVER, pets });
+
+//THUNK CREATORS:
+
+export const getPets = () => {
+  return async (dispatch) => {
+    const { data } = await axios.get('/pets');
+    dispatch(gotPets(data));
+  };
+};
+
+//INITIAL STATE:
 const initialState = {
-  pets: []
-}
+  pets: [],
+};
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case GOT_PETS_FROM_SERVER:
-      return {...state, pets: action.pets}
+      return { ...state, pets: action.pets };
     default:
-      return state
+      return state;
   }
-}
+};
 
-const middlewares = applyMiddleware(loggingMiddleware)
-const store = createStore(reducer, middlewares)
+const middlewares = applyMiddleware(loggingMiddleware, thunkMiddleware);
+const store = createStore(reducer, middlewares);
 
-export default store
+export default store;
