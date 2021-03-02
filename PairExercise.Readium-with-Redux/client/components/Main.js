@@ -1,6 +1,7 @@
 import React from 'react';
 import Navbar from './Navbar';
 import StoriesList from './StoriesList';
+import SingleStory from './SingleStory';
 import { connect } from 'react-redux';
 import { fetchStories } from '../store/stories';
 import { HashRouter as Router, Route } from 'react-router-dom';
@@ -20,8 +21,9 @@ class Main extends React.Component {
             </div>
             <Navbar />
           </div>
-          <Route path="/stories" component={StoriesList} />
           <Route exact path="/" component={StoriesList} />
+          <Route exact path="/stories" component={StoriesList} />
+          <Route path="/stories/:storyId" component={SingleStory} />
         </div>
       </Router>
     );
