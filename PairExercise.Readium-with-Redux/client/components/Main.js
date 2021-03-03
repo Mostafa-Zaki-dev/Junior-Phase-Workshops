@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { fetchStories } from '../store/stories';
 import { fetchAuthors } from '../store/authors';
 import { HashRouter as Router, Route } from 'react-router-dom';
+import AllAuthors from './AllAuthors';
 
 class Main extends React.Component {
   componentDidMount() {
@@ -26,6 +27,7 @@ class Main extends React.Component {
           <Route exact path="/" component={StoriesList} />
           <Route exact path="/stories" component={StoriesList} />
           <Route path="/stories/:storyId" component={SingleStory} />
+          <Route path="/authors" component={AllAuthors} />
         </div>
       </Router>
     );
