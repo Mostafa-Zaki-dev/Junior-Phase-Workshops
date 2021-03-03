@@ -2,6 +2,7 @@ import React from 'react';
 import { fetchSingleAuthor, fetchAuthorComments, fetchAuthorStories } from '../store/singleAuthor';
 import { connect } from 'react-redux';
 import CommentsList from './CommentsList';
+import StoriesList from './StoriesList';
 
 class SingleAuthor extends React.Component {
   componentDidMount() {
@@ -28,6 +29,7 @@ class SingleAuthor extends React.Component {
         <hr />
         <div>
           <h4>STORIES</h4>
+          <StoriesList stories={stories} />
           <h4>COMMENTS</h4>
           <CommentsList comments={comments} />
         </div>
