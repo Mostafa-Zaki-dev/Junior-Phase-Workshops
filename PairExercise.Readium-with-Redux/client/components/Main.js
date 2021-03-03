@@ -8,6 +8,7 @@ import { fetchAuthors } from '../store/authors';
 import { HashRouter as Router, Route } from 'react-router-dom';
 import AllAuthors from './AllAuthors';
 import SingleAuthor from './SingleAuthor';
+import AllStories from './AllStories';
 
 class Main extends React.Component {
   componentDidMount() {
@@ -25,8 +26,8 @@ class Main extends React.Component {
             </div>
             <Navbar />
           </div>
-          <Route exact path="/" component={StoriesList} />
-          <Route exact path="/stories" component={StoriesList} />
+          <Route exact path="/" component={AllStories} />
+          <Route exact path="/stories" component={AllStories} />
           <Route path="/stories/:storyId" component={SingleStory} />
           <Route exact path="/authors" component={AllAuthors} />
           <Route path="/authors/:authorId" component={SingleAuthor} />

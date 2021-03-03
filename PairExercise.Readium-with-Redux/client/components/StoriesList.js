@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 const StoriesList = (props) => {
@@ -21,10 +20,4 @@ const StoriesList = (props) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    stories: state.stories,
-  };
-};
-
-export default connect(mapStateToProps)(StoriesList);
+export default StoriesList;
