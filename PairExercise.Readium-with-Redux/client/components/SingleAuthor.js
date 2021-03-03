@@ -3,7 +3,7 @@ import { fetchSingleAuthor, fetchAuthorComments, fetchAuthorStories } from '../s
 import { connect } from 'react-redux';
 import CommentsList from './CommentsList';
 import StoriesList from './StoriesList';
-import { Link, Route } from 'react-router-dom';
+import { NavLink, Route } from 'react-router-dom';
 
 class SingleAuthor extends React.Component {
   componentDidMount() {
@@ -30,8 +30,18 @@ class SingleAuthor extends React.Component {
         </div>
         <hr />
         <div id="single-author-nav">
-          <Link to={`/authors/${author.id}/comments`}>Comments</Link>
-          <Link to={`/authors/${author.id}/stories`}>Stories</Link>
+          <NavLink
+            activeStyle={{ fontWeight: 'bold', color: 'blue' }}
+            to={`/authors/${author.id}/comments`}
+          >
+            Comments
+          </NavLink>
+          <NavLink
+            activeStyle={{ fontWeight: 'bold', color: 'blue' }}
+            to={`/authors/${author.id}/stories`}
+          >
+            Stories
+          </NavLink>
         </div>
         <hr />
         <div>
