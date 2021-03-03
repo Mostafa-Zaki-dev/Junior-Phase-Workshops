@@ -4,10 +4,12 @@ import thunkMiddleware from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import stories from './stories';
 import singleStory from './singleStory';
+import authors from './authors';
 
 const reducer = combineReducers({
   stories,
   singleStory,
+  authors,
 });
 
 const middleware = composeWithDevTools(

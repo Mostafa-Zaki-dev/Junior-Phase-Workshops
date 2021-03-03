@@ -4,11 +4,13 @@ import StoriesList from './StoriesList';
 import SingleStory from './SingleStory';
 import { connect } from 'react-redux';
 import { fetchStories } from '../store/stories';
+import { fetchAuthors } from '../store/authors';
 import { HashRouter as Router, Route } from 'react-router-dom';
 
 class Main extends React.Component {
   componentDidMount() {
     this.props.loadStories();
+    this.props.loadAuthors();
   }
 
   render() {
@@ -33,6 +35,7 @@ class Main extends React.Component {
 const mapDispatchToProps = (dispatch) => {
   return {
     loadStories: () => dispatch(fetchStories()),
+    loadAuthors: () => dispatch(fetchAuthors()),
   };
 };
 
