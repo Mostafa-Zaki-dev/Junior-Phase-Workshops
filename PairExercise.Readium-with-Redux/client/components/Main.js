@@ -7,6 +7,7 @@ import { fetchStories } from '../store/stories';
 import { fetchAuthors } from '../store/authors';
 import { HashRouter as Router, Route } from 'react-router-dom';
 import AllAuthors from './AllAuthors';
+import SingleAuthor from './SingleAuthor';
 
 class Main extends React.Component {
   componentDidMount() {
@@ -27,7 +28,8 @@ class Main extends React.Component {
           <Route exact path="/" component={StoriesList} />
           <Route exact path="/stories" component={StoriesList} />
           <Route path="/stories/:storyId" component={SingleStory} />
-          <Route path="/authors" component={AllAuthors} />
+          <Route exact path="/authors" component={AllAuthors} />
+          <Route path="/authors/:authorId" component={SingleAuthor} />
         </div>
       </Router>
     );
