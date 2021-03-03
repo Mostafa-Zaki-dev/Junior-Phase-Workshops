@@ -1,7 +1,7 @@
 import React from 'react';
 
 const CommentsList = (props) => {
-  const comments = props.comments;
+  const comments = props.comments || []; // default to empty array to avoid TypeError due to first render with empty comments
   return comments.map((comment, i) => {
     return (
       <div key={i} id="comments">

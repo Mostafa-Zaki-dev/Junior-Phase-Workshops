@@ -1,6 +1,7 @@
 import React from 'react';
 import { fetchSingleAuthor, fetchAuthorComments, fetchAuthorStories } from '../store/singleAuthor';
 import { connect } from 'react-redux';
+import CommentsList from './CommentsList';
 
 class SingleAuthor extends React.Component {
   componentDidMount() {
@@ -28,6 +29,7 @@ class SingleAuthor extends React.Component {
         <div>
           <h4>STORIES</h4>
           <h4>COMMENTS</h4>
+          <CommentsList comments={comments} />
         </div>
       </div>
     );

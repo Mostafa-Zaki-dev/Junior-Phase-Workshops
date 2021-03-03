@@ -13,7 +13,7 @@ class SingleStory extends React.Component {
     // console.log('props >>', this.props);
     const { story } = this.props;
     const content = story.content || ''; // default to empty string
-    const comments = story.comments || []; // default to empty array
+    const comments = story.comments;
     return (
       <div id="single-story" className="column">
         <h1>{story.title}</h1>
