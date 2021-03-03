@@ -5,11 +5,13 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import stories from './stories';
 import singleStory from './singleStory';
 import authors from './authors';
+import singleAuthor from './singleAuthor';
 
 const reducer = combineReducers({
   stories,
   singleStory,
   authors,
+  singleAuthor,
 });
 
 const middleware = composeWithDevTools(
