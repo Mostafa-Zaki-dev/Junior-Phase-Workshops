@@ -3,6 +3,7 @@ import { fetchSingleAuthor, fetchAuthorComments, fetchAuthorStories } from '../s
 import { connect } from 'react-redux';
 import CommentsList from './CommentsList';
 import StoriesList from './StoriesList';
+import { Link, Route } from 'react-router-dom';
 
 class SingleAuthor extends React.Component {
   componentDidMount() {
@@ -17,21 +18,31 @@ class SingleAuthor extends React.Component {
     const {
       singleAuthor: { info, comments, stories },
     } = this.props;
+    const author = info;
     return (
       <div id="single-author" className="column">
         <div id="single-author-detail" className="row">
           <div className="column mr1">
-            <h1>{info.name}</h1>
-            <p>{info.bio}</p>
+            <h1>{author.name}</h1>
+            <p>{author.bio}</p>
           </div>
-          <img src={info.imageUrl} />
+          <img src={author.imageUrl} />
+        </div>
+        <hr />
+        <div id="single-author-nav">
+          <Link to={`/authors/${author.id}/comments`}>Comments</Link>
+          <Link to={`/authors/${author.id}/stories`}>Stories</Link>
         </div>
         <hr />
         <div>
-          <h4>STORIES</h4>
-          <StoriesList stories={stories} />
-          <h4>COMMENTS</h4>
-          <CommentsList comments={comments} />
+          <Route
+            path="/authors/:authorId/comments"
+            render={() => <CommentsList comments={comments} />}
+          />
+          <Route
+            path="/authors/:authorId/stories"
+            render={() => <StoriesList stories={stories} />}
+          />
         </div>
       </div>
     );

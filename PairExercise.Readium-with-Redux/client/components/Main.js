@@ -1,6 +1,5 @@
 import React from 'react';
 import Navbar from './Navbar';
-import StoriesList from './StoriesList';
 import SingleStory from './SingleStory';
 import { connect } from 'react-redux';
 import { fetchStories } from '../store/stories';
