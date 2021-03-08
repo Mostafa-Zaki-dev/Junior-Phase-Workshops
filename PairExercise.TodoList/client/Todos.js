@@ -13,6 +13,11 @@ export default class Todos extends Component {
     this.removeTodo = this.removeTodo.bind(this);
   }
 
+  async componentDidMount() {
+    const { data } = await axios.get('/api/todos');
+    this.setState({ todos: data });
+  }
+
   addTodo(todo) {
     this.setState({
       todos: [...this.state.todos, todo],
@@ -30,11 +35,6 @@ export default class Todos extends Component {
     } catch (error) {
       console.log('there was an error in removeTodo:', error);
     }
-  }
-
-  async componentDidMount() {
-    const { data } = await axios.get('/api/todos');
-    this.setState({ todos: data });
   }
 
   render() {
