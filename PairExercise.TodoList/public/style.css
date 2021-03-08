@@ -14,7 +14,7 @@ a:hover {
 }
 
 body {
-  font-family: 'Open Sans', arial,sans-serif;
+  font-family: 'Open Sans', arial, sans-serif;
   margin: 0;
   height: 100vh;
   width: 100vw;
@@ -78,16 +78,16 @@ form {
 form input {
   padding: 0.3em;
   margin: 0.5em 0;
-  font-size: 0.5em;
+  font-size: 16px;
 }
 
 form button {
   color: white;
-  background-color: #59A9E9;
+  background-color: #59a9e9;
 }
 
 form button:hover {
-  background-color: #59A9C2;
+  background-color: #59a9c2;
 }
 
 form button:disabled {
