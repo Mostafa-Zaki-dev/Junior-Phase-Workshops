@@ -8,7 +8,7 @@ function TodoForm(props) {
       <input type="text" name="taskName" onChange={handleChange} value={taskName} />
       <label>Assign To: </label>
       <input type="text" name="assignee" onChange={handleChange} value={assignee} />
-      <button>Submit</button>
+      <button disabled={!taskName || !assignee}>Submit</button>
     </form>
   );
 }
