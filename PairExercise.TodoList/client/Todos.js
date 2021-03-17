@@ -23,7 +23,7 @@ export default class Todos extends Component {
       const data = doc.data();
       return { id, ...data };
     });
-    console.log('collection todos:', todos);
+    console.log('collection todos:', firebaseTodos);
     // this.setState({ todos: data });
     this.setState({ todos: firebaseTodos });
   }
