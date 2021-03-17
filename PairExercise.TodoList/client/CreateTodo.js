@@ -19,7 +19,7 @@ export default class CreateTodo extends Component {
     });
   }
   async handleSubmit(e) {
-    /* comment in what is commented out if you want to use the local server interaction with local todos database */
+    /* comment in what is commented out if you want to use the local server api functionality */
 
     try {
       const { addTodo } = this.props;

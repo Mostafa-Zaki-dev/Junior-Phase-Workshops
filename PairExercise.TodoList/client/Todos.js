@@ -15,7 +15,8 @@ export default class Todos extends Component {
   }
 
   async componentDidMount() {
-    /* comment in what is commented out if you want to use the local server interaction with local todos database */
+    /* comment in what is commented out if you want to use the local server api functionality */
+
     // const { data } = await axios.get('/api/todos');
     const { docs } = await db.collection('todos').get();
     const firebaseTodos = docs.map((doc) => {
@@ -35,9 +36,12 @@ export default class Todos extends Component {
   }
 
   async removeTodo(todoId) {
+    /* comment in what is commented out if you want to use the local server api functionality */
+
     try {
       const { todos } = this.state;
-      await axios.delete(`/api/todos/${todoId}`);
+      // await axios.delete(`/api/todos/${todoId}`);
+      await db.collection('todos').doc(todoId).delete();
       const filteredTodos = todos.filter((todo) => todo.id !== todoId);
       this.setState({
         todos: filteredTodos,
