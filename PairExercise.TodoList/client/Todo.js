@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 const Todo = (props) => {
   const { todo, removeTodo } = props;
+  console.log('todo passed: ', todo);
   return (
     <div className="todo row" key={todo.id}>
       <div className="column">

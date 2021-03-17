@@ -3,6 +3,7 @@ import Todo from './Todo';
 import UpdateTodo from './UpdateTodo';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import db from './firebase-config';
 
 export default class SingleTodo extends Component {
   constructor() {
@@ -14,9 +15,15 @@ export default class SingleTodo extends Component {
   }
 
   async componentDidMount() {
+    /* comment in what is commented out if you want to use the local server api functionality */
+
     const todoId = this.props.match.params.todoId;
-    const { data } = await axios.get(`/api/todos/${todoId}`);
-    this.setState({ todo: data });
+    // const { data } = await axios.get(`/api/todos/${todoId}`);
+    const doc = await db.collection('todos').doc(todoId).get();
+    console.log('docId: ', doc.id, '/doc data: ', doc.data());
+    const id = doc.id;
+    const data = doc.data();
+    this.setState({ todo: { id, ...data } });
   }
 
   updateTodo(updatedTodo) {

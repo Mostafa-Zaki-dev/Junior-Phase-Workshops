@@ -19,14 +19,14 @@ export default class Todos extends Component {
 
     // const { data } = await axios.get('/api/todos');
     const { docs } = await db.collection('todos').get();
-    const firebaseTodos = docs.map((doc) => {
+    const firestoreTodos = docs.map((doc) => {
       const id = doc.id;
       const data = doc.data();
       return { id, ...data };
     });
-    console.log('collection todos:', firebaseTodos);
+    console.log('collection todos:', firestoreTodos);
     // this.setState({ todos: data });
-    this.setState({ todos: firebaseTodos });
+    this.setState({ todos: firestoreTodos });
   }
 
   addTodo(todo) {
