@@ -3,7 +3,7 @@ import Todo from './Todo';
 import UpdateTodo from './UpdateTodo';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import db from './firebase-config';
+import db from '../firebase-config';
 
 export default class SingleTodo extends Component {
   constructor() {

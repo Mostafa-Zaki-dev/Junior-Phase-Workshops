@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import Todo from './Todo';
 import CreateTodo from './CreateTodo';
-import db from './firebase-config';
+import db from '../firebase-config';
 
 export default class Todos extends Component {
   constructor(props) {

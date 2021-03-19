@@ -7,7 +7,7 @@ export default class Main extends Component {
   render() {
     return (
       <div id="main">
-        <h1>Zaki Todos</h1>
+        <h1>Zaki' Todos</h1>
         <Route exact path="/" component={Todos} />
         <Route path="/todos/:todoId" component={SingleTodo} />
       </div>
