@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import TodoForm from './TodoForm';
-import db from './firebase-config';
+import db from '../firebase-config';
 
 export default class CreateTodo extends Component {
   constructor(props) {
