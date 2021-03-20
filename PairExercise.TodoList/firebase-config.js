@@ -2,13 +2,13 @@ import firebase from 'firebase/app';
 import 'firebase/firestore';
 
 var firebaseConfig = {
-  apiKey: 'AIzaSyA_XjzN-OzTYW5Rvow7FWAXJ7qnF5VKUYE',
-  authDomain: 'todos-b5bfd.firebaseapp.com',
-  projectId: 'todos-b5bfd',
-  storageBucket: 'todos-b5bfd.appspot.com',
-  messagingSenderId: '5763232846',
-  appId: '1:5763232846:web:4c493946883998d674ff1f',
-  measurementId: 'G-QFTXH30RY7',
+  apiKey: 'AIzaSyDtoA-qkyXv3DnK4HvqjHfQs8b10TU651U',
+  authDomain: 'zaki-todos.firebaseapp.com',
+  projectId: 'zaki-todos',
+  storageBucket: 'zaki-todos.appspot.com',
+  messagingSenderId: '201726742827',
+  appId: '1:201726742827:web:992102440b7818a503756e',
+  measurementId: 'G-1469RYNRYC',
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
