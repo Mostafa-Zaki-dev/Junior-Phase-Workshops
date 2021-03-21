@@ -20,9 +20,9 @@ export const login = (formData) => {
   return async (dispatch) => {
     try {
       const { data } = await axios.put('/auth/login', formData);
-      dispatch(gotuser(data));
+      dispatch(gotUser(data));
     } catch (error) {
-      console.error('Thunk Error: ', error);
+      console.log('Thunk Error: ', error.message);
     }
   };
 };

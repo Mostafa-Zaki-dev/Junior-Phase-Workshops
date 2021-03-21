@@ -11,7 +11,7 @@ const UserPage = (props) => {
     return (
       <div className="h100 w100 flex column align-items-center justify-center">
         <div className="flex">
-          <img className="rounded mr1" src={user.imgUrl} />
+          <img className="rounded mr1" src={user.imageUrl} />
           <h1>Welcome back {user.email}!</h1>
         </div>
         <div>
