@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const morgan = require('morgan');
+const chalk = require('chalk');
 const session = require('express-session');
 const { db } = require('./db');
 const app = express();
@@ -43,7 +44,7 @@ app.use((req, res, next) => {
 
 // Error handling endware
 app.use((err, req, res, next) => {
-  console.log('Error Happened: ', err.message);
+  console.log(chalk.bgRed('Error Happened: '), chalk.red.bold(err.message));
   res.status(err.status || 500);
   res.send(err.message || 'Internal server error');
 });
