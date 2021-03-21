@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { createStore, applyMiddleware } from 'redux';
 import loggerMiddleware from 'redux-logger';
 import thunkMiddleware from 'redux-thunk';
@@ -12,6 +13,19 @@ export const gotUser = (user) => ({
   type: GET_USER,
   user,
 });
+
+//thunk creators:
+
+export const login = (formData) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.put('/auth/login', formData);
+      dispatch(gotuser(data));
+    } catch (error) {
+      console.error('Thunk Error: ', error);
+    }
+  };
+};
 
 //initial state
 

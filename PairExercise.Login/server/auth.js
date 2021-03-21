@@ -16,10 +16,10 @@ router.put('/login', async (req, res, next) => {
     if (user) {
       res.json(user);
     } else {
-      // const err = new Error("Incorrect email or password!");
-      // err.status = 401;
-      // next(err);
-      res.sendStatus(401);
+      const err = new Error('Incorrect email or password!');
+      err.status = 401;
+      next(err);
+      // res.sendStatus(401);
     }
   } catch (error) {
     next(error);
