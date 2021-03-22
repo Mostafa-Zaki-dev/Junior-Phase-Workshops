@@ -39,7 +39,7 @@ export const getMe = () => async (dispatch) => {
 export const logout = () => async (dispatch) => {
   try {
     await axios.delete('/auth/logout');
-    dispatch(gotuser({}));
+    dispatch(gotUser({}));
   } catch (error) {
     console.log('Thunk logout Error: ', error.message);
   }

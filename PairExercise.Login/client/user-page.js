@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import { logout } from './store';
 
 const UserPage = (props) => {
   const { user, handleClick } = props;
@@ -38,8 +39,14 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   const history = ownProps.history;
 
   return {
-    handleClick() {
+    async handleClick() {
       // your code here
+      try {
+        await dispatch(logout());
+        history.push('/');
+      } catch (error) {
+        console.error('Error at logout: ', error.message);
+      }
     },
   };
 };
