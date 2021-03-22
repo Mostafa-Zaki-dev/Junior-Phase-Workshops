@@ -45,3 +45,12 @@ router.get('/me', async (req, res, next) => {
     next(err);
   }
 });
+
+router.delete('/logout', (req, res, next) => {
+  delete req.session.userId;
+  const err = new Error('User Logged Out');
+  err.status = 204;
+  next(err);
+  /* use the custom error above or the below with no message */
+  // res.status(204).end();
+});
