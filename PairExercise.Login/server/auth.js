@@ -47,10 +47,21 @@ router.get('/me', async (req, res, next) => {
 });
 
 router.delete('/logout', (req, res, next) => {
-  delete req.session.userId;
+  /* use on of the following approaches to destroy the session */
+
+  // 1) Destroying a session: (use destroy() session method to destroys the session and will unset the req.session property)
+  req.session.destroy();
+
+  // 2)  Deleting a key on the session: (remove userId key from session)
+  // delete req.session.userId;
+
+  // 3) Setting a key on the session to null or undefined: (set userId key on session to null or undefined)
+  // req.session.userId = null;
+
   const err = new Error('User Logged Out');
   err.status = 204;
   next(err);
+
   /* use the custom error above or the below with no message */
   // res.status(204).end();
 });
