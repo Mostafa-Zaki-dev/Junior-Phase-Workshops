@@ -6,7 +6,8 @@ require('../secrets');
 
 const verificationCallback = async (accessToken, refreshToken, profile, done) => {
   try {
-    console.log('profile returned: ', profile);
+    console.log('<<< verificationCallback fired up >>>');
+    // console.log('profile returned: ', profile);
     const [user] = await User.findOrCreate({
       where: {
         googleId: profile.id,
@@ -16,7 +17,7 @@ const verificationCallback = async (accessToken, refreshToken, profile, done) =>
         imageUrl: profile._json.picture,
       },
     });
-    console.log('[user] from User.findOrCreate >>>', user);
+    // console.log('[user] from User.findOrCreate >>>', user);
     done(null, user);
   } catch (error) {
     done(error);
@@ -33,6 +34,21 @@ const strategy = new GoogleStrategy(
 );
 
 passport.use(strategy);
+
+// utlimately gets triggered by the `done` of verification callback, happens ONCE when the user logs in via google
+passport.serializeUser((user, done) => {
+  done(null, user.id);
+});
+// gets triggered by our passport session middleware for EVERY request
+passport.deserializeUser(async (id, done) => {
+  try {
+    const user = await User.findByPk(id);
+    // will mean that `req.user` is equal to the user we just found
+    done(null, user);
+  } catch (error) {
+    done(error);
+  }
+});
 
 router.get('/', passport.authenticate('google', { scope: 'email' }));
 
