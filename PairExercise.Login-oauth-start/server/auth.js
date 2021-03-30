@@ -5,7 +5,11 @@ module.exports = router;
 router.get('/me', async (req, res, next) => {
   try {
     if (!req.session.userId) {
-      res.sendStatus(401);
+      if (req.user) {
+        res.json(req.user);
+      } else {
+        res.sendStatus(401);
+      }
     } else {
       const user = await User.findByPk(req.session.userId);
       if (!user) {
