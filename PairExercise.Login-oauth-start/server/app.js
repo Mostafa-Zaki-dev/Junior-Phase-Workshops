@@ -5,6 +5,7 @@ const session = require('express-session');
 const { db } = require('./db');
 const app = express();
 const PORT = 3000;
+const passport = require('passport');
 
 // Logging middleware
 app.use(morgan('dev'));
@@ -21,6 +22,10 @@ app.use(
     saveUninitialized: false,
   })
 );
+
+// Intialize passport
+app.use(passport.initialize());
+app.use(passport.session());
 
 // Static middleware
 app.use(express.static(path.join(__dirname, '..', 'public')));

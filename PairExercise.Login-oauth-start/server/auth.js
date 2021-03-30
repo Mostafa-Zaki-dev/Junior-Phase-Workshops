@@ -44,3 +44,5 @@ router.delete('/logout', (req, res) => {
   delete req.session.userId;
   res.sendStatus(204);
 });
+
+router.use('/google', require('./oauth'));
