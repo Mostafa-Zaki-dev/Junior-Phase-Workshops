@@ -6,7 +6,7 @@ const PORT = process.env.PORT || 8080;
 const app = express();
 const server = app.listen(PORT, () =>
   console.log(`
-    Listening on http://http://localhost:8080
+    Listening on http://localhost:8080
   `)
 );
 const io = require('socket.io')(server);
