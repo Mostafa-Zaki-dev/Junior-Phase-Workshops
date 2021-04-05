@@ -1,4 +1,6 @@
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
+import thunkMiddleware from 'redux-thunk';
+import axios from 'axios';
 // Action types
 
 const GOT_MESSAGES_FROM_SERVER = 'GOT_MESSAGES_FROM_SERVER';
@@ -9,6 +11,13 @@ export const gotMessagesFromServer = (messages) => ({
   type: GOT_MESSAGES_FROM_SERVER,
   messages,
 });
+
+// Thunk creators
+
+export const fetchMessages = () => async (dispatch) => {
+  const { data } = await axios.get('/api/messages');
+  dispatch(gotMessagesFromServer(data));
+};
 
 // Initial state
 
@@ -25,6 +34,8 @@ const reducer = (state = intialState, action) => {
   }
 };
 
-const store = createStore(reducer);
+//
+
+const store = createStore(reducer, applyMiddleware(thunkMiddleware));
 
 export default store;
