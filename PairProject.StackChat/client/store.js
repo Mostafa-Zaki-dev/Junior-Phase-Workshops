@@ -2,6 +2,7 @@ import { createStore, applyMiddleware } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import axios from 'axios';
 import { composeWithDevTools } from 'redux-devtools-extension';
+import socket from './socket';
 
 // Action types
 
@@ -35,6 +36,7 @@ export const fetchMessages = () => async (dispatch) => {
 export const postMessage = (message) => async (dispatch) => {
   const { data } = await axios.post('/api/messages', message);
   dispatch(gotNewMessagesFromServer(data));
+  socket.emit('new-message', data);
 };
 // Initial state
 
