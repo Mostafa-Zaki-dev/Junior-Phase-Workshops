@@ -1,6 +1,8 @@
 import { createStore, applyMiddleware } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import axios from 'axios';
+import { composeWithDevTools } from 'redux-devtools-extension';
+
 // Action types
 
 const GOT_MESSAGES_FROM_SERVER = 'GOT_MESSAGES_FROM_SERVER';
@@ -30,6 +32,10 @@ export const fetchMessages = () => async (dispatch) => {
   dispatch(gotMessagesFromServer(data));
 };
 
+export const postMessage = (message) => async (dispatch) => {
+  const { data } = await axios.post('/api/messages', message);
+  dispatch(gotNewMessagesFromServer(data));
+};
 // Initial state
 
 const intialState = {
@@ -54,6 +60,6 @@ const reducer = (state = intialState, action) => {
 
 //
 
-const store = createStore(reducer, applyMiddleware(thunkMiddleware));
+const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunkMiddleware)));
 
 export default store;
