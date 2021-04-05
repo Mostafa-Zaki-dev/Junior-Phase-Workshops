@@ -4,6 +4,8 @@ import axios from 'axios';
 // Action types
 
 const GOT_MESSAGES_FROM_SERVER = 'GOT_MESSAGES_FROM_SERVER';
+const WRITE_MESSAGE = 'WRITE_MESSAGE';
+const GOT_NEW_MESSAGE_FROM_SERVER = 'GOT_NEW_MESSAGE_FROM_SERVER';
 
 // Action creators
 
@@ -21,7 +23,10 @@ export const fetchMessages = () => async (dispatch) => {
 
 // Initial state
 
-const intialState = { messages: [] };
+const intialState = {
+  messages: [],
+  newMessageEntry: '',
+};
 
 // Reducer
 
