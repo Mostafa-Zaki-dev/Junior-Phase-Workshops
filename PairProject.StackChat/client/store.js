@@ -14,6 +14,15 @@ export const gotMessagesFromServer = (messages) => ({
   messages,
 });
 
+export const gotNewMessagesFromServer = (message) => ({
+  type: GOT_NEW_MESSAGE_FROM_SERVER,
+  message,
+});
+
+export const writeMessage = (inputcontent) => ({
+  type: WRITE_MESSAGE,
+  newMessageEntry: inputcontent,
+});
 // Thunk creators
 
 export const fetchMessages = () => async (dispatch) => {
@@ -34,6 +43,10 @@ const reducer = (state = intialState, action) => {
   switch (action.type) {
     case GOT_MESSAGES_FROM_SERVER:
       return { ...state, messages: action.messages };
+    case WRITE_MESSAGE:
+      return { ...state, newMessageEntry: action.newMessageEntry };
+    case GOT_NEW_MESSAGE_FROM_SERVER:
+      return { ...state, messages: [...state.messages, action.message] };
     default:
       return state;
   }
