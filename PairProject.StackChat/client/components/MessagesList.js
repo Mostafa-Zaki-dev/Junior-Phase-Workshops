@@ -26,6 +26,15 @@ class MessagesList extends Component {
   }
 }
 
+const mapStateToProps = (state) => ({
+  messages: state.messages,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  fetchInitialMessages: () => dispatch(fetchMessages()),
+});
+export default connect(mapStateToProps, mapDispatchToProps)(MessagesList);
+
 // using functional component:
 
 /* 
@@ -46,12 +55,3 @@ const MessagesList = (props) => {
   );
 }; 
 */
-
-const mapStateToProps = (state) => ({
-  messages: state.messages,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  fetchInitialMessages: () => dispatch(fetchMessages()),
-});
-export default connect(mapStateToProps, mapDispatchToProps)(MessagesList);
