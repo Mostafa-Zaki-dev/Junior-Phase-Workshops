@@ -29,7 +29,7 @@ export const writeMessage = (inputcontent) => ({
 });
 
 export const userSet = (user) => ({
-  type: USER_SET,
+  type: USER_NAME,
   user,
 });
 
@@ -40,7 +40,8 @@ export const fetchMessages = () => async (dispatch) => {
   dispatch(gotMessagesFromServer(data));
 };
 
-export const postMessage = (message) => async (dispatch) => {
+export const postMessage = (message) => async (dispatch, getState) => {
+  message.name = getState().user;
   const { data } = await axios.post('/api/messages', message);
   dispatch(gotNewMessagesFromServer(data));
   socket.emit('new-message', data);
