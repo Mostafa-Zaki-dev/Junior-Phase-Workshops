@@ -9,6 +9,7 @@ import socket from './socket';
 const GOT_MESSAGES_FROM_SERVER = 'GOT_MESSAGES_FROM_SERVER';
 const WRITE_MESSAGE = 'WRITE_MESSAGE';
 const GOT_NEW_MESSAGE_FROM_SERVER = 'GOT_NEW_MESSAGE_FROM_SERVER';
+const USER_NAME = 'USER_NAME';
 
 // Action creators
 
@@ -26,6 +27,12 @@ export const writeMessage = (inputcontent) => ({
   type: WRITE_MESSAGE,
   newMessageEntry: inputcontent,
 });
+
+export const userSet = (user) => ({
+  type: USER_SET,
+  user,
+});
+
 // Thunk creators
 
 export const fetchMessages = () => async (dispatch) => {
@@ -43,6 +50,7 @@ export const postMessage = (message) => async (dispatch) => {
 const intialState = {
   messages: [],
   newMessageEntry: '',
+  user: '',
 };
 
 // Reducer
@@ -55,6 +63,8 @@ const reducer = (state = intialState, action) => {
       return { ...state, newMessageEntry: action.newMessageEntry };
     case GOT_NEW_MESSAGE_FROM_SERVER:
       return { ...state, messages: [...state.messages, action.message] };
+    case USER_NAME:
+      return { ...state, user: action.user };
     default:
       return state;
   }
